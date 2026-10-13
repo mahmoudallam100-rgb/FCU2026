@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>غرفة الرصد الميداني</title>
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<!-- الإصدار 4: الأعضاء + الرصدات -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -90,6 +92,7 @@ main{position:relative;overflow:hidden;background:radial-gradient(ellipse at 52%
 /* overlays */
 .hud{position:absolute;bottom:18px;left:46px;z-index:5;font-family:var(--display);font-size:12px;color:var(--muted);direction:ltr;text-align:left;line-height:1.5;font-variant-numeric:tabular-nums;pointer-events:none}
 .hud b{color:var(--gold-hi);font-weight:600}
+.hud .ver{direction:rtl;color:var(--muted);font-size:11px;margin-top:2px}
 .hud .gname{direction:rtl;color:var(--white);font-size:14px}
 .mapctl{position:absolute;top:46px;left:46px;display:flex;flex-direction:column;gap:6px;z-index:5}
 .mapctl button{width:38px;height:38px;border-radius:4px;background:var(--panel);border:1px solid var(--line-hi);cursor:pointer;font-size:18px;line-height:1}
@@ -426,7 +429,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
       بيانات الأفراد محمية بكلمة مرور ولا تظهر قبل تسجيل الدخول.
       <div><button class="btn gold" id="ctaBtn">تسجيل الدخول</button></div>
     </div>
-    <div class="hud" id="hud"><div class="gname" id="hudG">&nbsp;</div><div id="hudLL"><b>30.04°N</b> <b>31.24°E</b></div></div>
+    <div class="hud" id="hud"><div class="gname" id="hudG">&nbsp;</div><div id="hudLL"><b>30.04°N</b> <b>31.24°E</b></div><div class="ver">الإصدار 4 — الرصدات</div></div>
     <div class="chips" id="chips"></div>
 
     <aside id="panel" aria-live="polite">
@@ -542,7 +545,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
    بعد النشر الصق الرابط بين علامتي التنصيص، مثال:
    const API_URL = "https://script.google.com/macros/s/XXXX/exec";
    ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbybMC1stDBIroDa76iW_95aaBhhnBW6J9FaLfin5Guo5rA_fjSdIQUibnNq8Lok_Icj/exec";
+const API_URL = "";
 
 /* ============================================================
    الهيكل الثابت للقطاع الميداني (بدون أي بيانات أشخاص)
