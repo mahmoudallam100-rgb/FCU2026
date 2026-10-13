@@ -554,7 +554,7 @@ function N(s){return String(s??"").replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي
 const GOV_KEY={};
 Object.entries(GOV_NAMES).forEach(([c,n])=>GOV_KEY[N(n).replace(/\s/g,"")]=c);
 Object.assign(GOV_KEY,{"الاقصر":"EG29","مدينهالاقصر":"EG29","بنيسويف":"EG22","بورسعيد":"EG03","الوادالجديد":"EG32","اسكندريه":"EG02","الاسكندريه":"EG02","القليوبيه":"EG14","الاسماعيليه":"EG19","المنوفيه":"EG17","الغربيه":"EG16","الدقهليه":"EG12","البحيره":"EG18","الشرقيه":"EG13","البحرالاحمر":"EG31"});
-const CENTRAL_KEYS=["الغرفهالمركزيه","المؤسسه"];
+const CENTRAL_KEYS=["الغرفهالمركزيه","الموسسه"];
 function govCode(v){
   const k=N(v).replace(/^محافظه/,"").replace(/\s/g,"");
   if(CENTRAL_KEYS.includes(k)) return "C";
