@@ -22,7 +22,7 @@ body{margin:0;background:var(--black);color:var(--white);font-family:var(--body)
 button,input{font-family:inherit;font-size:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
 
-#app{height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-top:env(safe-area-inset-top,0px)}
+#app{height:100%;display:grid;grid-template-rows:auto auto 1fr auto;padding-top:env(safe-area-inset-top,0px)}
 
 /* ---------- header ---------- */
 header{display:flex;align-items:center;gap:18px;padding:12px 20px;border-bottom:1px solid var(--line);background:#000;z-index:8;flex-wrap:wrap;position:relative}
@@ -210,6 +210,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
 .chipsin span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gold);border-radius:3px;padding:2px 4px 2px 10px;font-size:13px}
 .chipsin button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:0 4px}
 .chipsin button:hover{color:var(--alert)}
+.two[hidden],.pprev[hidden]{display:none}
 .rowin{display:flex;gap:6px}.rowin input{flex:1}
 .checks{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:13px}
 .checks label{display:flex;gap:6px;align-items:flex-start;cursor:pointer}
@@ -222,6 +223,55 @@ body.masked .sens{filter:blur(6px);user-select:none}
 .banner{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:6;background:#140F05;border:1px solid var(--gold);color:var(--gold-hi);padding:6px 14px;border-radius:4px;font-size:13px;display:flex;gap:10px;align-items:center}
 .banner[hidden]{display:none}
 .card-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+/* ---------- الرصدات ---------- */
+.btn.rep{border-color:var(--gold);color:var(--gold-hi)}
+.cnt{display:inline-block;min-width:20px;padding:0 5px;border-radius:10px;background:var(--gold);color:#000;font-weight:700;font-size:12px;text-align:center;margin-inline-start:4px}
+.cnt.red{background:var(--alert);color:#fff}
+.cnt:empty{display:none}
+.ubar{display:flex;align-items:stretch;background:#1A0405;border-bottom:1px solid var(--alert);overflow:hidden;z-index:8;height:34px}
+.ubar[hidden]{display:none}
+.ulabel{display:flex;align-items:center;gap:8px;background:var(--alert);color:#fff;font-family:var(--display);font-weight:800;padding:0 16px;font-size:15px;flex:none}
+.ulabel i{width:8px;height:8px;border-radius:50%;background:#fff}
+.anim .ulabel i{animation:blink 1s steps(2) infinite}
+.utrack{flex:1;overflow:hidden;position:relative;display:flex;align-items:center}
+.umove{display:inline-flex;gap:40px;white-space:nowrap;padding-inline-start:100%}
+.anim .umove{animation:tick 40s linear infinite}
+.ubar:hover .umove{animation-play-state:paused}
+.umove button{background:none;border:0;color:#FFD9DA;cursor:pointer;font-size:14px;padding:0}
+.umove button b{color:#fff;margin-inline-end:6px}
+.umove button:hover{color:#fff;text-decoration:underline}
+.ubar.flash{animation:flash .5s 4}
+@keyframes flash{50%{background:#5a0a0d}}
+.alert-gov{fill:#E5484D;stroke:#FF6B70;stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none;fill-opacity:.35}
+.anim .alert-gov{animation:alertPulse 1.6s ease-in-out infinite}
+@keyframes alertPulse{0%,100%{fill-opacity:.12}50%{fill-opacity:.55}}
+.rep-badge{cursor:pointer}
+.rep-badge circle{stroke:#000;vector-effect:non-scaling-stroke}
+.rep-badge text{font-family:var(--display);font-weight:800;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.tag.urg{background:var(--alert);border-color:var(--alert);color:#fff}
+.tag.gold{border-color:var(--gold);color:var(--gold-hi)}
+.rlist{list-style:none;padding:0;margin:4px 0}
+.rlist button{display:block;width:100%;text-align:start;background:var(--raise);border:0;border-inline-start:3px solid var(--line-hi);margin:6px 0;padding:8px 12px;cursor:pointer}
+.rlist button.u{border-inline-start-color:var(--alert)}
+.rlist button.done{opacity:.6}
+.rlist button:hover{background:#17140D}
+.rlist .rt{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-weight:600}
+.rlist .rm{font-size:12px;color:var(--muted);margin-top:2px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.filters select,.filters input{background:#0B0A07;border:1px solid var(--line-hi);border-radius:4px;padding:6px 8px;color:var(--white);font-family:inherit;font-size:13px;width:100%}
+.filters input{grid-column:1/-1}
+.rdetail{white-space:pre-wrap;line-height:1.8;margin:0}
+.rphoto{display:block;max-width:100%;max-height:340px;border:1px solid var(--gold);margin:12px 0;background:#111}
+.ph-wait{color:var(--muted);font-size:13px;border:1px dashed var(--line-hi);padding:20px;text-align:center;margin:12px 0}
+.seg{display:flex;border:1px solid var(--line-hi);border-radius:4px;overflow:hidden}
+.seg label{flex:1;text-align:center;padding:7px 4px;cursor:pointer;font-size:14px;border-inline-start:1px solid var(--line-hi)}
+.seg label:first-child{border-inline-start:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--gold);color:#000;font-weight:700}
+.seg label.u:has(input:checked){background:var(--alert);color:#fff}
+.seg label:has(input:focus-visible){outline:2px solid var(--gold-hi);outline-offset:-2px}
+.pprev{display:flex;gap:10px;align-items:center;margin-top:6px}
+.pprev img{width:90px;height:68px;object-fit:cover;border:1px solid var(--gold)}
 @media (max-width:760px){.two,.checks{grid-template-columns:1fr}}
 
 @media (max-width:1500px){.clock{display:none}}
@@ -326,8 +376,10 @@ body.masked .sens{filter:blur(6px);user-select:none}
         <input id="q" type="search" placeholder="ابحث بأي جزء من الاسم أو الموبايل أو الرقم القومي" aria-label="بحث" autocomplete="off">
         <div class="results" id="results" role="listbox"></div>
       </div>
+      <button class="btn rep" id="repNewBtn" hidden>+ رصد جديد</button>
+      <button class="btn" id="repBtn" hidden>الرصدات <span class="cnt" id="repCnt"></span></button>
       <button class="btn" id="addBtn" hidden>+ إضافة عضو</button>
-      <button class="btn" id="gapBtn" disabled>الوظائف غير المكتملة</button>
+      <button class="btn" id="gapBtn" disabled>الفجوات</button>
       <button class="btn" id="expAll" disabled title="تصدير كل بيانات القطاع إلى Excel">Excel</button>
       <button class="btn" id="pdfBtn" disabled title="التقرير الشامل للقطاع بصيغة PDF">PDF</button>
       <span class="who" id="who" hidden></span>
@@ -336,6 +388,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
     </div>
   </header>
 
+  <div class="ubar" id="ubar" hidden role="region" aria-label="شريط العواجل"><b class="ulabel"><i></i>عاجل</b><div class="utrack"><div class="umove" id="umove"></div></div></div>
   <main>
     <svg id="map" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="application" aria-label="خريطة جمهورية مصر العربية بالمحافظات">
       <defs>
@@ -343,7 +396,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
         <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F0D27F" stop-opacity="0"/><stop offset="1" stop-color="#F0D27F" stop-opacity=".28"/></linearGradient>
       </defs>
       <g id="world">
-        <g id="gGrat"></g><g id="gGov"></g><g id="gEdges"></g><g id="gRadar"></g><g id="gArcs"></g><g id="gNodes"></g><g id="gBlips"></g><g id="gPulse"></g><g id="gTarget" class="target"></g><g id="gLbl"></g><g id="gHQ"></g>
+        <g id="gGrat"></g><g id="gGov"></g><g id="gAlert"></g><g id="gEdges"></g><g id="gRadar"></g><g id="gArcs"></g><g id="gNodes"></g><g id="gBlips"></g><g id="gPulse"></g><g id="gTarget" class="target"></g><g id="gLbl"></g><g id="gRep"></g><g id="gHQ"></g>
       </g>
     </svg>
     <div class="scan"></div>
@@ -359,6 +412,8 @@ body.masked .sens{filter:blur(6px);user-select:none}
       <label><input type="checkbox" id="lyArcs" checked> خطوط الربط بالمركزية</label>
       <label><input type="checkbox" id="lyRadar" checked> مسح الرصد</label>
       <label><input type="checkbox" id="lyRegions" checked> حدود الأقاليم</label>
+      <label id="lyRepWrap" hidden><input type="checkbox" id="lyRep" checked> الرصدات على الخريطة</label>
+      <label id="lySndWrap" hidden><input type="checkbox" id="lySnd" checked> تنبيه صوتي للعواجل</label>
       <div class="lybtns"><button class="btn" id="tourBtn">جولة الأقاليم</button><button class="btn" id="maskBtn" title="إخفاء الرقم القومي والموبايل أثناء العرض على شاشة">وضع العرض</button></div>
       <label class="off" id="lyDensityWrap"><input type="checkbox" id="lyDensity" disabled> كثافة الأعضاء</label>
       <div id="gapLegend" hidden><b style="margin-top:8px">اكتمال المكاتب</b>
@@ -432,6 +487,41 @@ body.masked .sens{filter:blur(6px);user-select:none}
   </form>
 </div>
 
+<div class="modal" id="repM" hidden role="dialog" aria-modal="true" aria-labelledby="repT">
+  <form class="mbox" id="repF" novalidate>
+    <h2 id="repT">رصد جديد</h2>
+    <p class="hint">الرصد العاجل يظهر فورًا في شريط العواجل ويُضيء المحافظة على الخريطة.</p>
+    <div class="two">
+      <div class="fld"><span>نوع الرصد</span><div class="seg"><label><input type="radio" name="rType" value="ميداني" checked>رصد ميداني</label><label><input type="radio" name="rType" value="رقمي">رصد رقمي</label></div></div>
+      <div class="fld"><span>الأولوية</span><div class="seg"><label><input type="radio" name="rPri" value="اعتيادي" checked>اعتيادي</label><label class="u"><input type="radio" name="rPri" value="عاجل">عاجل</label></div></div>
+    </div>
+    <div class="two">
+      <label class="fld"><span>المحافظة</span><select id="rPlace" required></select></label>
+      <label class="fld"><span>المركز / القرية / المكان (اختياري)</span><input id="rWhere" maxlength="120"></label>
+    </div>
+    <label class="fld"><span>عنوان الرصد</span><input id="rTitle" maxlength="120" required placeholder="عنوان مختصر يظهر في شريط العواجل"></label>
+    <div class="two">
+      <label class="fld"><span>القطاع</span><select id="rSector" required></select></label>
+      <label class="fld"><span>التصنيف التفصيلي</span><select id="rSub"></select></label>
+    </div>
+    <div class="two" id="rDigital" hidden>
+      <label class="fld"><span>المنصة</span><select id="rPlat"></select></label>
+      <label class="fld"><span>رابط المنشور (اختياري)</span><input id="rLink" class="ltr" type="url" placeholder="https://"></label>
+    </div>
+    <label class="fld"><span>التفاصيل</span><textarea id="rDet" rows="5" maxlength="4000" required></textarea></label>
+    <div class="two">
+      <label class="fld"><span>وقت الرصد</span><input id="rWhen" type="datetime-local"></label>
+      <label class="fld" id="rStatWrap" hidden><span>الحالة</span><select id="rStat"></select></label>
+    </div>
+    <div class="fld"><span>صورة (اختياري)</span>
+      <input id="rPhoto" type="file" accept="image/*">
+      <div class="pprev" id="rPrev" hidden><img id="rPrevImg" alt=""><button class="mini" type="button" id="rPhotoDel">إزالة الصورة</button></div>
+    </div>
+    <p class="merr" id="repErr"></p>
+    <div class="mact"><button class="btn gold" type="submit" id="repGo">حفظ الرصد</button><button class="btn" type="button" data-close="repM">إلغاء</button></div>
+  </form>
+</div>
+
 <div class="modal" id="delM" hidden role="dialog" aria-modal="true" aria-labelledby="delT">
   <form class="mbox" id="delF">
     <h2 id="delT">حذف عضو</h2>
@@ -452,7 +542,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
    بعد النشر الصق الرابط بين علامتي التنصيص، مثال:
    const API_URL = "https://script.google.com/macros/s/XXXX/exec";
    ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbybMC1stDBIroDa76iW_95aaBhhnBW6J9FaLfin5Guo5rA_fjSdIQUibnNq8Lok_Icj/exec";
+const API_URL = "";
 
 /* ============================================================
    الهيكل الثابت للقطاع الميداني (بدون أي بيانات أشخاص)
@@ -573,7 +663,7 @@ const siteMarks=Object.entries(SITES).map(([code,s])=>{
   return {code,x,y,m,t};
 });
 /* ---------- zoom ---------- */
-let K=1;
+let K=1,repBadges=[],REPORTS=[];
 const zoom=d3.zoom().scaleExtent([.8,40]).translateExtent([[-400,-400],[VBW+400,VBH+400]])
   .on("zoom",e=>{world.attr("transform",e.transform);K=e.transform.k;rescale()});
 svg.call(zoom).on("dblclick.zoom",null);
@@ -588,6 +678,7 @@ function rescale(){
   hqLbl.attr("font-size",15/s).attr("y",-R-8/s).attr("stroke-width",4/k);
   radar.attr("transform",`translate(${hq}) scale(${1/Math.pow(k,.6)})`);
   d3.selectAll(".blip").attr("r",1.8/s);
+  repBadges.forEach(o=>o.g.attr("transform",`translate(${o.x},${o.y+12/s}) scale(${1/s})`));
   siteMarks.forEach(o=>{const z=6/s;o.m.attr("d",`M0,${-z}L${z},0L0,${z}L${-z},0Z`).attr("stroke-width",1.5);o.t.attr("font-size",10/s).attr("y",-z-4/s).attr("stroke-width",3/k).attr("display",k>2.2?null:"none")});
 }
 rescale();
@@ -840,6 +931,7 @@ function openCentral(){
   const placed=new Set([...director,...advisor,...health].map(p=>p.key));
   const pending=C.filter(p=>!placed.has(p.key)&&!p.depts.length&&!p.roles.some(r=>leaderRoles.includes(r)));
   if(pending.length){h+=`<h3>بانتظار تحديد الإدارة</h3>`;h+=plist(pending,p=>p.roles.join("، "));h+=`<p class="note">اكتب اسم الإدارة في عمود "الإدارة" بملف الأعضاء وسيظهر الشخص تلقائيًا ضمن فريقها.</p>`}
+  h+=repSection("EG");
   if(DB.other.length){h+=`<h3>مقار عمل أخرى</h3>`+plist(DB.other,p=>p.siteRaw||"غير محدد")}
   setPanel("مقر القيادة، القاهرة","الغرفة المركزية",h,[["تصدير بيانات المركزية",exportCentral],...(canEdit()?[["+ إضافة عضو بالمركزية",()=>openEditor(null,"الغرفة المركزية")]]:[])]);
   flyHQ();
@@ -885,6 +977,7 @@ function openGov(code){
       h+=gp.missing.length?`<div class="note" style="border-color:var(--alert);color:var(--white)"><b style="color:var(--alert)">وظائف غير مكتملة:</b> ${gp.missing.map(esc).join("، ")}</div>`:`<div class="note">الوظائف الأساسية مكتملة</div>`;
       Object.entries(SITES).filter(([c,s])=>s.parent===code).forEach(([c,s])=>h+=`<button class="lead" data-gov="${c}"><small>مقر خاص داخل المحافظة</small>${esc(s.name)} — ${peopleAt(c).length} عضو</button>`);
     }
+    h+=repSection(code);
     if(!special) h+=`<div class="stats">${stat(P.length,"عضو بالمكتب")}${stat(P.filter(p=>has(p,"منسق ميداني")).length,"منسق ميداني")}${stat(P.filter(p=>has(p,"مدير مكتب")).length,"مدير مكتب")}</div>`;
     else h+=`<div class="stats">${stat(P.length,"عضو بالمقر")}${stat(GOV_NAMES[SITES[code].parent],"المحافظة")}${stat(regionOf[code].n,"رقم الإقليم")}</div>`;
     if(special){const g=groupByRole(P);h+=`<h3>أعضاء المقر</h3>`;Object.keys(g).forEach(k=>h+=group(k,g[k],true))}
@@ -1011,7 +1104,8 @@ function runSearch(){
   const n=NN(v);
   const places=INDEX.filter(x=>n.split(" ").every(t=>x.k.includes(t))).slice(0,6);
   const ppl=searchPeople(v).slice(0,40).map(p=>({kind:"عضو",t:p.name,s:p.roles.join("، ")+" — "+siteName(p),p}));
-  hits=[...ppl,...places];
+  const reps=REPORTS.length?REPORTS.filter(r=>{const k=N([r.data.title,r.data.where,r.data.sector,r.data.sub,placeLabel(r.data.place)].join(" "));return n.split(" ").every(t=>k.includes(t))}).slice(0,10).map(r=>({kind:"رصد",t:r.data.title,s:placeLabel(r.data.place)+" — "+r.data.priority+" — "+r.data.status,r})):[];
+  hits=[...ppl,...reps,...places];
   if(!hits.length){res.innerHTML=`<button disabled>لا توجد نتائج<small>${DB?"جرّب جزءًا آخر من الاسم أو آخر أرقام الموبايل":"حمّل ملف الأعضاء للبحث بالأسماء والأرقام"}</small></button>`;res.classList.add("on");return}
   res.innerHTML=hits.map((h,i)=>`<button data-i="${i}" role="option"><span class="kind">${h.kind}</span>${esc(h.t)}<small>${esc(h.s)}</small></button>`).join("");
   res.classList.add("on");act=-1;
@@ -1019,6 +1113,7 @@ function runSearch(){
 }
 function pick(i){
   const h=hits[i]; if(!h) return; hideResults(); q.blur();
+  if(h.r){openReport(h.r.id);return}
   if(h.p){
     hitKey=h.p.key;
     if(h.p.code&&h.p.code!=="C") openGov(h.p.code); else openCentral();
@@ -1097,7 +1192,7 @@ function centralGaps(){
 }
 const gapBtn=document.getElementById("gapBtn");
 gapBtn.onclick=()=>{
-  gapMode=!gapMode;gapBtn.classList.toggle("on",gapMode);gapBtn.textContent=gapMode?"إنهاء عرض الفجوات":"الوظائف غير المكتملة";
+  gapMode=!gapMode;gapBtn.classList.toggle("on",gapMode);gapBtn.textContent=gapMode?"إنهاء الفجوات":"الفجوات";
   document.getElementById("gapLegend").hidden=!gapMode;
   if(gapMode){const d=document.getElementById("lyDensity");d.checked=false}
   applyFill(); if(gapMode) openGaps(); else {closePanel();clearSel()}
@@ -1251,6 +1346,7 @@ async function loadFromApi(keep){
   if(!j.ok){toast(j.error);return false}
   DB=buildDB(parseRows([j.header,...j.rows]));MODE="api";lastLoad=Date.now();
   if(keep) refreshAll(); else afterImport();
+  loadReports().catch(e=>toast(e.message));
   return true;
 }
 function endSession(){TOKEN=null;USER=null;ss_("fm_tok",null);ss_("fm_user",null)}
@@ -1264,7 +1360,9 @@ function updateUserUI(){
   who.hidden=false;who.innerHTML=MODE==="api"?`${esc(USER.name)}<small>${esc(USER.role)}</small>`:`ملف محلي<small>${canEdit()?"تعديل محلي":""}</small>`;
   document.getElementById("loginBtn").hidden=true;
   document.getElementById("logoutBtn").hidden=false;
-  document.getElementById("addBtn").hidden=!canEdit();
+  document.getElementById("addBtn").hidden=true;
+  ["repNewBtn","repBtn"].forEach(id=>document.getElementById(id).hidden=MODE!=="api");
+  ["lyRepWrap","lySndWrap"].forEach(id=>document.getElementById(id).hidden=MODE!=="api");
 }
 function refreshAll(){
   applyFill();buildTicker();buildIndex();
@@ -1390,6 +1488,272 @@ $("delF").onsubmit=async e=>{
 };
 $("saveLocalBtn").onclick=()=>{save([["الميداني",membersSheet()]],"ملف أعضاء القطاع الميداني");DIRTY=false;$("localBanner").hidden=true};
 addEventListener("beforeunload",e=>{if(DIRTY){e.preventDefault();e.returnValue=""}});
+
+/* ============================================================
+   الرصدات: ميداني / رقمي — عاجل / اعتيادي
+   (التصنيفات قابلة للتعديل من هنا مباشرة)
+   ============================================================ */
+const REP_SECTORS={
+  "القطاع الخدمي":["مياه الشرب","الكهرباء","الصرف الصحي","الغاز الطبيعي","النظافة والمخلفات","الاتصالات والإنترنت"],
+  "الطرق والنقل":["حالة الطرق","المواصلات العامة","الحوادث المرورية","الكباري والمزلقانات"],
+  "القطاع الصحي":["المستشفيات","الوحدات الصحية","نقص الأدوية","الإسعاف","أمراض وأوبئة"],
+  "القطاع التعليمي":["المدارس","الكثافات والعجز","المعلمون","المستلزمات والكتب"],
+  "التموين والأسعار":["الخبز","السلع التموينية","ارتفاع الأسعار","الأسواق"],
+  "الأمن والسلامة العامة":["حوادث","حرائق","مشاجرات","سرقات","مخاطر على السلامة العامة"],
+  "الطوارئ والكوارث":["سيول وأمطار","انهيار مبانٍ","حرائق كبرى","موجات حر أو برد"],
+  "الإسكان والبنية التحتية":["مبانٍ آيلة للسقوط","تعديات","مشروعات متأخرة","مشروعات منتهية لم تُشغَّل"],
+  "البيئة":["تلوث","مخلفات زراعية وصناعية","ارتفاع المياه الجوفية","حيوانات ضالة"],
+  "الشئون الاجتماعية":["حالات إنسانية","كبار السن","ذوو الإعاقة","معاشات ودعم نقدي"],
+  "التشغيل والعمالة":["فرص عمل","عمالة غير منتظمة","مشروعات صغيرة"],
+  "الزراعة والري":["مياه الري","الأسمدة والتقاوي","الأراضي الزراعية"],
+  "شئون المؤسسة":["أنشطة ومبادرات المؤسسة","شكاوى من الأداء","انتحال صفة أو احتيال باسم المؤسسة","صورة المؤسسة إعلاميًا"],
+  "أخرى":["أخرى"]
+};
+const REP_PLATFORMS=["فيسبوك","إكس (تويتر)","تيك توك","يوتيوب","إنستجرام","واتساب","تليجرام","مواقع إخبارية","أخرى"];
+const REP_STATUS=["مفتوح","قيد المتابعة","تم الحل"];
+const REP_PLACES=[["EG","على مستوى الجمهورية"],...REGIONS.flatMap(r=>r.govs.map(g=>[g,GOV_NAMES[g]])),["RF","غرفة عمليات معبر رفح"]];
+const placeLabel=c=>c==="EG"?"على مستوى الجمهورية":c==="RF"?"غرفة عمليات معبر رفح":GOV_NAMES[c]?"محافظة "+GOV_NAMES[c]:(c||"غير محدد");
+let repSeen=null,repTimer=null,REPF={};
+const isOpen=r=>r.data.status!=="تم الحل";
+const isUrgent=r=>r.data.priority==="عاجل"&&isOpen(r);
+const repTime=r=>r.data.when||r.created;
+const byNewest=(a,b)=>String(repTime(b)).localeCompare(String(repTime(a)))||(+b.id)-(+a.id);
+const fmtDT=new Intl.DateTimeFormat("ar-EG",{timeZone:"Africa/Cairo",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+function when(s){const d=new Date(s);if(isNaN(d))return "";const m=Math.round((Date.now()-d)/60000);if(m<1)return "الآن";if(m<60)return "منذ "+m+" دقيقة";if(m<1440)return "منذ "+Math.round(m/60)+" ساعة";return fmtDT.format(d)}
+function canModifyRep(r){return MODE==="api"&&USER&&(r.createdBy===USER.username||USER.role==="مدير النظام"||USER.role==="محرر")}
+
+async function loadReports(){
+  if(MODE!=="api") return;
+  const j=await api("rec.list",{col:"reports"});
+  if(!j.ok){toast(j.error);return}
+  const fresh=j.records;
+  if(repSeen){
+    const nu=fresh.filter(r=>isUrgent(r)&&!repSeen.has(r.id));
+    if(nu.length){alertNew(nu)}
+  }
+  repSeen=new Set(fresh.map(r=>r.id));
+  REPORTS=fresh;renderReports();
+  clearTimeout(repTimer);repTimer=setTimeout(()=>{if(!document.hidden)loadReports().catch(()=>{});else repTimer=setTimeout(loadReports,60000)},60000);
+}
+function alertNew(list){
+  toast("رصد عاجل جديد: "+list[0].data.title+(list.length>1?" (+"+(list.length-1)+")":""));
+  const b=$("ubar");b.classList.remove("flash");void b.offsetWidth;b.classList.add("flash");
+  if($("lySnd").checked){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=880;g.gain.setValueAtTime(.08,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.6);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.6)}catch(e){}}
+}
+function renderReports(){
+  const show=$("lyRep").checked;
+  const open=REPORTS.filter(isOpen),urg=REPORTS.filter(isUrgent);
+  $("repCnt").textContent=open.length||"";$("repCnt").className="cnt"+(urg.length?" red":"");
+  /* glow */
+  const ag=d3.select("#gAlert");ag.selectAll("*").remove();
+  const urgPlaces=[...new Set(urg.map(r=>r.data.place))];
+  if(show) urgPlaces.forEach(c=>{
+    if(byCode[c]) ag.append("path").attr("class","alert-gov").attr("d",path(byCode[c].f));
+    else if(SITES[c]){const[x,y]=projection(SITES[c].ll);ag.append("circle").attr("class","alert-gov").attr("cx",x).attr("cy",y).attr("r",14)}
+    else if(c==="EG") ag.append("circle").attr("class","alert-gov").attr("cx",hq[0]).attr("cy",hq[1]).attr("r",30);
+  });
+  /* badges */
+  const rg=d3.select("#gRep");rg.selectAll("*").remove();repBadges=[];
+  if(show){
+    const by={};open.forEach(r=>(by[r.data.place]=by[r.data.place]||[]).push(r));
+    Object.entries(by).forEach(([c,arr])=>{
+      let x,y;if(byCode[c]){[x,y]=byCode[c].c}else if(SITES[c]){[x,y]=projection(SITES[c].ll)}else{[x,y]=[hq[0]+18,hq[1]-18]}
+      const u=arr.some(isUrgent);
+      const g=rg.append("g").attr("class","rep-badge").attr("tabindex",0).attr("role","button").attr("aria-label",`${arr.length} رصد مفتوح — ${placeLabel(c)}`)
+        .on("click",e=>{e.stopPropagation();openReports({place:c})}).on("keydown",e=>{if(e.key==="Enter")openReports({place:c})});
+      g.append("circle").attr("r",8).attr("fill",u?"#E5484D":"#C9A44C");
+      g.append("text").attr("font-size",arr.length>9?8:10).attr("fill",u?"#fff":"#000").text(arr.length);
+      repBadges.push({g,x,y});
+    });
+  }
+  rescale();
+  /* urgent bar */
+  const bar=$("ubar");bar.hidden=!urg.length;
+  if(urg.length){const items=urg.slice().sort(byNewest).map(r=>`<button data-rep="${esc(r.id)}"><b>${esc(placeLabel(r.data.place).replace("محافظة ",""))}</b>${esc(r.data.title)}</button>`).join("");
+    $("umove").innerHTML=items+items;$("umove").style.animationDuration=Math.max(25,urg.length*12)+"s";
+    $("umove").querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>openReport(b.dataset.rep))}
+}
+$("lyRep").onchange=renderReports;
+
+function repItem(r){
+  const u=isUrgent(r),done=!isOpen(r);
+  return `<li><button class="${u?"u":""} ${done?"done":""}" data-rep="${esc(r.id)}"><div class="rt"><span>${esc(r.data.title)}</span><span class="tag ${u?"urg":r.data.priority==="عاجل"?"":"gold"}">${esc(done?"تم الحل":r.data.priority)}</span></div><div class="rm">${esc(r.data.type)} · ${esc(placeLabel(r.data.place).replace("محافظة ",""))} · ${esc(r.data.sector||"")} · ${esc(when(repTime(r)))}</div></button></li>`;
+}
+function bindReps(root){root.querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>openReport(b.dataset.rep));root.querySelectorAll("[data-repnew]").forEach(b=>b.onclick=()=>openRepForm(null,b.dataset.repnew));root.querySelectorAll("[data-repall]").forEach(b=>b.onclick=()=>openReports({place:b.dataset.repall}))}
+function repSection(code){
+  if(MODE!=="api") return "";
+  const all=REPORTS.filter(r=>r.data.place===code).sort(byNewest),open=all.filter(isOpen),urg=all.filter(isUrgent);
+  let h=`<h3>الرصدات</h3>`;
+  h+=`<div class="row"><span>${open.length} مفتوح${urg.length?` · <b style="color:var(--alert)">${urg.length} عاجل</b>`:""} · ${all.length} إجمالي</span><span style="display:flex;gap:6px"><button class="mini" data-repnew="${code}">+ رصد</button>${all.length?`<button class="mini" data-repall="${code}">عرض الكل</button>`:""}</span></div>`;
+  if(all.length) h+=`<ul class="rlist">${[...urg,...open.filter(r=>!isUrgent(r)),...all.filter(r=>!isOpen(r))].slice(0,6).map(repItem).join("")}</ul>`;
+  return h;
+}
+/* بعد رسم أي لوحة: ربط أزرار الرصدات */
+const _bind=bind;bind=function(){_bind();bindReps(pBody)};
+
+/* ---------- لوحة كل الرصدات ---------- */
+function openReports(f={}){
+  if(MODE!=="api"){toast("الرصدات تحتاج تسجيل الدخول للمنظومة");return}
+  REPF={type:"",pri:"",status:"open",sector:"",place:"",period:"",q:"",...f};
+  current=()=>openReports(REPF);
+  const sel=(id,opts,val,all)=>`<select id="${id}"><option value="">${all}</option>${opts.map(o=>{const[v,l]=Array.isArray(o)?o:[o,o];return `<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`}).join("")}</select>`;
+  let h=`<div class="filters">
+    ${sel("fType",["ميداني","رقمي"],REPF.type,"كل الأنواع")}
+    ${sel("fPri",["عاجل","اعتيادي"],REPF.pri,"كل الأولويات")}
+    ${sel("fStat",[["open","المفتوحة فقط"],...REP_STATUS.map(s=>[s,s])],REPF.status,"كل الحالات")}
+    ${sel("fSec",Object.keys(REP_SECTORS),REPF.sector,"كل القطاعات")}
+    ${sel("fPlace",REP_PLACES,REPF.place,"كل المحافظات")}
+    ${sel("fPer",[["1","آخر 24 ساعة"],["7","آخر 7 أيام"],["30","آخر 30 يوم"]],REPF.period,"كل الفترات")}
+    <input id="fQ" type="search" placeholder="بحث في العنوان والتفاصيل" value="${esc(REPF.q)}">
+  </div><div id="repOut"></div>`;
+  setPanel("سجل الرصدات","الرصدات",h,[["تصدير Excel",exportReports],["+ رصد جديد",()=>openRepForm(null,REPF.place||"")]]);
+  ["fType","fPri","fStat","fSec","fPlace","fPer","fQ"].forEach(id=>$(id).addEventListener(id==="fQ"?"input":"change",()=>{REPF={type:$("fType").value,pri:$("fPri").value,status:$("fStat").value,sector:$("fSec").value,place:$("fPlace").value,period:$("fPer").value,q:$("fQ").value};drawRepList()}));
+  drawRepList();
+  if(REPF.place&&byCode[REPF.place]){clearSel();highlight([REPF.place]);flyToBounds(path.bounds(byCode[REPF.place].f),10)}else{clearSel();home()}
+}
+function filteredReports(){
+  const qn=N(REPF.q||""),since=REPF.period?Date.now()-(+REPF.period)*86400000:0;
+  return REPORTS.filter(r=>{const d=r.data;
+    if(REPF.type&&d.type!==REPF.type)return false;
+    if(REPF.pri&&d.priority!==REPF.pri)return false;
+    if(REPF.status==="open"&&!isOpen(r))return false;
+    if(REPF.status&&REPF.status!=="open"&&d.status!==REPF.status)return false;
+    if(REPF.sector&&d.sector!==REPF.sector)return false;
+    if(REPF.place&&d.place!==REPF.place)return false;
+    if(since&&new Date(repTime(r))<since)return false;
+    if(qn&&!qn.split(" ").every(t=>N([d.title,d.details,d.where,d.sub].join(" ")).includes(t)))return false;
+    return true}).sort((a,b)=>(isUrgent(b)-isUrgent(a))||byNewest(a,b));
+}
+function drawRepList(){
+  const L=filteredReports(),out=$("repOut");if(!out)return;
+  const u=L.filter(isUrgent).length;
+  out.innerHTML=`<div class="stats">${stat(L.length,"نتيجة")}${stat(u,"عاجل مفتوح")}${stat(L.filter(r=>r.data.type==="رقمي").length,"رصد رقمي")}</div>`+
+    (L.length?`<ul class="rlist">${L.slice(0,200).map(repItem).join("")}</ul>`:`<p class="note">لا توجد رصدات بهذه الفلاتر.</p>`);
+  bindReps(out);
+  const places=[...new Set(L.map(r=>r.data.place).filter(c=>byCode[c]))];
+  govSel.classed("sel",d=>places.includes(d.code));
+}
+function exportReports(){
+  const L=filteredReports();
+  const H=["رقم الرصد","النوع","الأولوية","الحالة","المحافظة","المكان","القطاع","التصنيف","العنوان","التفاصيل","المنصة","الرابط","وقت الرصد","أضافه","وقت الإضافة","آخر تعديل بواسطة"];
+  const rows=L.map(r=>{const d=r.data;return[r.id,d.type,d.priority,d.status,placeLabel(d.place),d.where||"",d.sector||"",d.sub||"",d.title,d.details,d.platform||"",d.link||"",fmtDT.format(new Date(repTime(r))),r.createdByName,fmtDT.format(new Date(r.created)),r.updatedBy]});
+  const ws=XLSX.utils.aoa_to_sheet([H,...rows]);ws["!cols"]=H.map((h,i)=>({wch:i===9?60:i===8?36:14}));
+  save([["الرصدات",ws]],"سجل الرصدات");
+}
+
+/* ---------- تفاصيل رصد ---------- */
+const PHOTO_CACHE=new Map();
+async function loadPhoto(id){
+  if(PHOTO_CACHE.has(id))return PHOTO_CACHE.get(id);
+  const j=await api("file.get",{id});if(!j.ok)throw new Error(j.error);
+  const url="data:"+j.mime+";base64,"+j.data;PHOTO_CACHE.set(id,url);return url;
+}
+function openReport(id){
+  const r=REPORTS.find(x=>x.id===String(id));if(!r){toast("الرصد غير موجود، ربما تم حذفه");return}
+  const d=r.data,u=isUrgent(r),prev=current&&current!==openReportCur?current:null;
+  current=openReportCur=()=>openReport(id);
+  clearSel();
+  if(byCode[d.place]){highlight([d.place]);lockOn(path.bounds(byCode[d.place].f));flyToBounds(path.bounds(byCode[d.place].f),10)}
+  else if(SITES[d.place]){highlight([SITES[d.place].parent]);lockOn(siteBounds(d.place));flyToBounds(boundsOf([SITES[d.place].parent]),10)}
+  let h=`<div class="p-actions" style="margin:12px 0 0"><span class="tag ${u?"urg":"gold"}">${esc(d.priority)}</span><span class="tag">${esc(d.status)}</span><span class="tag">${esc(d.type==="رقمي"?"رصد رقمي":"رصد ميداني")}</span></div>`;
+  h+=`<div class="card">`;
+  h+=`<div class="f"><span class="k">المكان</span><span class="v">${byCode[d.place]||SITES[d.place]?`<button class="linkish" data-gov="${esc(d.place)}">${esc(placeLabel(d.place))}</button>`:esc(placeLabel(d.place))}${d.where?"<br><span class='muted'>"+esc(d.where)+"</span>":""}</span><span></span></div>`;
+  h+=`<div class="f"><span class="k">القطاع</span><span class="v">${esc(d.sector||"—")}${d.sub?"<br><span class='muted'>"+esc(d.sub)+"</span>":""}</span><span></span></div>`;
+  if(d.type==="رقمي") h+=`<div class="f"><span class="k">المنصة</span><span class="v">${esc(d.platform||"—")}${d.link?`<br><a class="linkish" href="${esc(d.link)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a>`:""}</span><span></span></div>`;
+  h+=`<div class="f"><span class="k">وقت الرصد</span><span class="v">${esc(fmtDT.format(new Date(repTime(r))))}</span><span></span></div>`;
+  h+=`</div><h3>التفاصيل</h3><p class="rdetail">${esc(d.details)}</p>`;
+  if(d.photoId) h+=`<div class="ph-wait" id="phBox">جارٍ تحميل الصورة…</div>`;
+  h+=`<p class="muted">أضافه ${esc(r.createdByName)} — ${esc(fmtDT.format(new Date(r.created)))}${r.updated&&r.updated!==r.created?`<br>آخر تعديل: ${esc(r.updatedBy)} — ${esc(fmtDT.format(new Date(r.updated)))}`:""}</p>`;
+  const acts=[];
+  if(canModifyRep(r)){
+    REP_STATUS.filter(s=>s!==d.status).forEach(s=>acts.push([s==="تم الحل"?"✓ تم الحل":"تحويل إلى: "+s,()=>setRepStatus(r,s)]));
+    acts.push(["تعديل",()=>openRepForm(r)]);
+  }
+  if(MODE==="api"&&USER&&(USER.role==="مدير النظام"||USER.role==="محرر")) acts.push(["حذف",()=>delReport(r)]);
+  if(prev) h+=`<div class="card-actions"><button class="btn" id="repBack">رجوع</button></div>`;
+  setPanel(`رصد رقم ${r.id}`,d.title,h,acts);
+  if(prev) $("repBack").onclick=()=>prev();
+  if(d.photoId) loadPhoto(d.photoId).then(url=>{const b=$("phBox");if(b)b.outerHTML=`<img class="rphoto" src="${url}" alt="صورة الرصد">`}).catch(()=>{const b=$("phBox");if(b)b.textContent="تعذر تحميل الصورة"});
+}
+let openReportCur=null;
+async function setRepStatus(r,s){
+  const data={...r.data,status:s};
+  const j=await api("rec.save",{col:"reports",id:r.id,data:withCols(data)});
+  if(!j.ok){toast(j.error);return}
+  upsertRep(j.record);toast("تم تحديث الحالة: "+s);openReport(r.id);
+}
+async function delReport(r){
+  const reason=prompt("سبب حذف الرصد (يُسجَّل في سجل التعديلات):");
+  if(reason===null)return;
+  if(reason.trim().length<5){toast("اكتب سبب الحذف (5 أحرف على الأقل)");return}
+  const j=await api("rec.delete",{col:"reports",id:r.id,reason:reason.trim()});
+  if(!j.ok){toast(j.error);return}
+  REPORTS=REPORTS.filter(x=>x.id!==r.id);renderReports();toast("تم حذف الرصد");openReports({place:r.data.place});
+}
+function upsertRep(rec){const i=REPORTS.findIndex(x=>x.id===rec.id);if(i>=0)REPORTS[i]=rec;else REPORTS.push(rec);if(repSeen)repSeen.add(rec.id);renderReports()}
+function withCols(d){return{...d,_cols:{"النوع":d.type,"الأولوية":d.priority,"الحالة":d.status,"المحافظة":placeLabel(d.place),"المكان":d.where||"","القطاع":d.sector||"","التصنيف":d.sub||"","العنوان":d.title,"وقت الرصد":d.when?fmtDT.format(new Date(d.when)):""}}}
+
+/* ---------- نموذج الرصد ---------- */
+let REPEDIT=null,repPhoto=null,repPhotoKeep=null;
+function localDT(d){const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}
+function openRepForm(r,presetPlace){
+  if(MODE!=="api"){toast("الرصدات تحتاج تسجيل الدخول للمنظومة");return}
+  REPEDIT=r||null;const d=r?r.data:{};repPhoto=null;repPhotoKeep=d.photoId||null;
+  $("repT").textContent=r?"تعديل رصد رقم "+r.id:"رصد جديد";
+  document.querySelector(`input[name=rType][value="${d.type||"ميداني"}"]`).checked=true;
+  document.querySelector(`input[name=rPri][value="${d.priority||"اعتيادي"}"]`).checked=true;
+  $("rPlace").innerHTML=`<option value="">اختر المحافظة</option>`+REP_PLACES.map(([v,l])=>`<option value="${v}"${v===(d.place||presetPlace||"")?" selected":""}>${esc(l)}</option>`).join("");
+  $("rWhere").value=d.where||"";$("rTitle").value=d.title||"";$("rDet").value=d.details||"";
+  $("rSector").innerHTML=`<option value="">اختر القطاع</option>`+Object.keys(REP_SECTORS).map(s=>`<option${s===d.sector?" selected":""}>${esc(s)}</option>`).join("");
+  fillSub(d.sub);
+  $("rPlat").innerHTML=REP_PLATFORMS.map(p=>`<option${p===d.platform?" selected":""}>${esc(p)}</option>`).join("");
+  $("rLink").value=d.link||"";
+  $("rWhen").value=localDT(d.when?new Date(d.when):new Date());
+  $("rStatWrap").hidden=!r;$("rStat").innerHTML=REP_STATUS.map(s=>`<option${s===(d.status||"مفتوح")?" selected":""}>${s}</option>`).join("");
+  $("rPhoto").value="";showPrev(null);
+  if(repPhotoKeep) loadPhoto(repPhotoKeep).then(showPrev).catch(()=>{});
+  toggleDigital();$("repErr").textContent="";showModal("repM");
+}
+function fillSub(val){const s=REP_SECTORS[$("rSector").value]||[];$("rSub").innerHTML=`<option value="">${s.length?"اختر التصنيف":"اختر القطاع أولًا"}</option>`+s.map(x=>`<option${x===val?" selected":""}>${esc(x)}</option>`).join("")}
+$("rSector").onchange=()=>fillSub();
+function toggleDigital(){$("rDigital").hidden=document.querySelector("input[name=rType]:checked").value!=="رقمي"}
+document.querySelectorAll("input[name=rType]").forEach(i=>i.onchange=toggleDigital);
+function showPrev(url){$("rPrev").hidden=!url;if(url)$("rPrevImg").src=url}
+$("rPhotoDel").onclick=()=>{repPhoto=null;repPhotoKeep=null;$("rPhoto").value="";showPrev(null)};
+$("rPhoto").onchange=async()=>{
+  const f=$("rPhoto").files[0];if(!f)return;
+  if(!/^image\//.test(f.type)){$("repErr").textContent="اختر صورة فقط";return}
+  try{repPhoto=await shrink(f,1600,.82);repPhotoKeep=null;showPrev(repPhoto)}catch(e){$("repErr").textContent="تعذر قراءة الصورة"}
+};
+function shrink(file,max,q){return new Promise((ok,no)=>{const img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{const s=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",q))};img.onerror=()=>{URL.revokeObjectURL(u);no()};img.src=u})}
+$("repF").onsubmit=async e=>{
+  e.preventDefault();
+  const err=$("repErr"),go=$("repGo");err.textContent="";
+  const d={type:document.querySelector("input[name=rType]:checked").value,priority:document.querySelector("input[name=rPri]:checked").value,
+    status:REPEDIT?$("rStat").value:"مفتوح",place:$("rPlace").value,where:$("rWhere").value.trim(),title:$("rTitle").value.replace(/\s+/g," ").trim(),
+    sector:$("rSector").value,sub:$("rSub").value,details:$("rDet").value.trim(),when:$("rWhen").value?new Date($("rWhen").value).toISOString():new Date().toISOString()};
+  if(d.type==="رقمي"){d.platform=$("rPlat").value;d.link=$("rLink").value.trim()}
+  if(!d.place){err.textContent="اختر المحافظة";return}
+  if(d.title.length<5){err.textContent="اكتب عنوانًا واضحًا للرصد";return}
+  if(!d.sector){err.textContent="اختر القطاع";return}
+  if(d.details.length<10){err.textContent="اكتب تفاصيل الرصد";return}
+  if(d.link&&!/^https?:\/\//.test(d.link)){err.textContent="الرابط لازم يبدأ بـ http";return}
+  if(new Date(d.when)>Date.now()+5*60000){err.textContent="وقت الرصد لا يمكن أن يكون في المستقبل";return}
+  go.disabled=true;go.textContent="جارٍ الحفظ…";
+  try{
+    if(repPhoto){go.textContent="جارٍ رفع الصورة…";const j=await api("file.put",{name:d.title,mime:"image/jpeg",data:repPhoto.split(",")[1]});if(!j.ok){err.textContent=j.error;return}d.photoId=j.id;PHOTO_CACHE.set(j.id,repPhoto)}
+    else if(repPhotoKeep) d.photoId=repPhotoKeep;
+    go.textContent="جارٍ الحفظ…";
+    const j=await api("rec.save",{col:"reports",id:REPEDIT?REPEDIT.id:"",data:withCols(d)});
+    if(!j.ok){err.textContent=j.error;return}
+    upsertRep(j.record);hideModal("repM");
+    toast(REPEDIT?"تم حفظ التعديل":(d.priority==="عاجل"?"تم تسجيل رصد عاجل":"تم تسجيل الرصد"));
+    openReport(j.record.id);
+  }catch(x){err.textContent=x.message}
+  finally{go.disabled=false;go.textContent="حفظ الرصد"}
+};
+$("repNewBtn").onclick=()=>openRepForm(null,"");
+$("repBtn").onclick=()=>openReports({});
 
 /* ---------- intro ---------- */
 buildIndex();buildTicker();applyFill();
