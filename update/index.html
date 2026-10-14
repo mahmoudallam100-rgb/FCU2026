@@ -32,8 +32,6 @@ a{color:inherit}
 .a3{width:380px;height:380px;background:#147264;top:40%;left:35%;opacity:.35;animation:float1 28s ease-in-out infinite reverse}
 @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,90px) scale(1.15)}}
 @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(110px,-70px) scale(1.2)}}
-#bg-pattern{position:fixed;inset:-50%;z-index:-2;opacity:.07;pointer-events:none;animation:spin 240s linear infinite;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23f3d77a' stroke-width='1.2'%3E%3Cpath d='M60 10 L74 46 L110 60 L74 74 L60 110 L46 74 L10 60 L46 46 Z'/%3E%3Crect x='32' y='32' width='56' height='56' transform='rotate(45 60 60)'/%3E%3Crect x='32' y='32' width='56' height='56'/%3E%3Ccircle cx='60' cy='60' r='12'/%3E%3C/g%3E%3C/svg%3E");background-size:120px}
 @keyframes spin{to{transform:rotate(360deg)}}
 #bg-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
 .scanline{position:fixed;left:0;right:0;height:2px;z-index:-1;background:linear-gradient(90deg,transparent,rgba(243,215,122,.55),transparent);animation:scan 9s linear infinite;pointer-events:none}
@@ -164,7 +162,7 @@ select.inp option,select.inp optgroup{background:#023830;color:#fff}
 
 /* ===== الإدارة ===== */
 .adm-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
 .stat{padding:16px;border-radius:16px;text-align:center}
 .stat b{display:block;font-size:30px;font-weight:900;color:var(--gold2)}
 .stat span{font-size:13px;color:#cfe9e5}
@@ -179,6 +177,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
 .st-pill.new{background:rgba(0,189,192,.2);color:#9ff0e6}
 .st-pill.upd{background:rgba(212,175,55,.2);color:var(--gold2)}
 .st-pill.okk{background:rgba(34,197,139,.2);color:#7ee8bf}
+.st-pill.imp{background:rgba(160,160,255,.18);color:#d3d3ff}
 .st-pill.rej{background:rgba(255,93,108,.2);color:#ffb3ba}
 .switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:14px}
 .switch input{display:none}
@@ -212,10 +211,51 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
 .form-doc .sigs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;text-align:center;font-weight:700;color:#023830}
 .form-doc .sigs div{border-top:1.5px dashed #023830;padding-top:6px}
 .form-doc .ff{display:flex;justify-content:space-between;font-size:12px;color:#555;border-top:1px solid #ddd;padding:8px 22px}
-.form-doc .idimg{max-width:100%;max-height:62mm;display:block;margin:4px auto;border:1px solid #ccc}
+.form-doc .idimg{max-width:100%;max-height:105mm;display:block;margin:6px auto;border:1px solid #ccc;border-radius:4px}
+.form-doc .blk{margin-bottom:4px}
+.form-doc .ph{background-size:cover;background-position:center}
 .form-doc .logt td{font-size:13px}
 #print-area{display:none}
 
+/* ===== اختيار محتوى التقرير ===== */
+.chooser{display:none;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(1,30,26,.85);max-height:46vh;overflow:auto}
+.chooser.open{display:block;animation:fadeUp .3s ease}
+.ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
+.lnk{background:none;border:0;color:var(--gold2);cursor:pointer;font-size:13px;text-decoration:underline}
+.ch-grp{margin-bottom:10px}
+.ch-h{font-size:13px;color:#9ff0e6;margin-bottom:6px;font-weight:700}
+.ch-items{display:flex;flex-wrap:wrap;gap:6px}
+.tg{position:relative;cursor:pointer;font-size:13px}
+.tg input{position:absolute;opacity:0;pointer-events:none}
+.tg span{display:inline-block;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);transition:.2s}
+.tg input:checked+span{background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--g900);border-color:var(--gold);font-weight:700}
+.tg.sec span{border-color:rgba(0,189,192,.6)}
+.tg input:indeterminate+span{background:rgba(212,175,55,.3)}
+.btn.on{outline:2px solid var(--gold2)}
+.av{width:38px;height:38px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.08) center/cover;border:2px solid rgba(243,215,122,.55);display:inline-grid;place-items:center;font-size:15px;vertical-align:middle}
+.grp-doc table{width:100%;border-collapse:collapse}
+.grp-doc th{background:#023830;color:#fff;padding:6px;font-size:12.5px;border:1px solid #0a4a40}
+.grp-doc td{border:1px solid #c9d6d3;padding:4px 6px;font-size:12.5px;vertical-align:middle}
+.grp-doc .gp{width:16mm;height:19mm;object-fit:cover;border-radius:3px;display:block;margin:auto;background:#eee}
+.grp-doc .gh td{background:#147264;color:#fff;font-weight:800;font-size:14px}
+.grp-doc tr:nth-child(even) td{background:#f6faf9}
+/* ===== أزرار عصرية تفاعلية ===== */
+.btn,.nav button,.multi button,.tg span{will-change:transform}
+.btn{isolation:isolate;letter-spacing:.2px}
+.btn:active{transform:translateY(0) scale(.96)}
+.btn .rp,.nav button .rp{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.55);animation:rip .6s ease-out;pointer-events:none;z-index:-1}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.btn.ghost{background:rgba(255,255,255,.04);backdrop-filter:blur(6px)}
+.btn.ghost:hover{background:rgba(255,255,255,.1);border-color:var(--gold2);color:var(--gold2)}
+.btn:not(.ghost):hover{filter:brightness(1.07) saturate(1.1)}
+.nav button{position:relative;overflow:hidden}
+.nav button.on{box-shadow:0 6px 20px rgba(212,175,55,.35)}
+.multi button:active,.tg span:active{transform:scale(.94)}
+.multi button.on{animation:pop .3s ease}
+.sp{cursor:default;position:relative;overflow:hidden}
+.sp::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(243,215,122,.25),transparent 60%);opacity:0;transition:.3s}
+.sp:hover::before{opacity:1}
+.glass.tilt{transition:transform .25s ease}
 /* ===== تنبيهات ===== */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140%);z-index:300;padding:12px 22px;border-radius:12px;font-weight:700;transition:.4s;max-width:92vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 #toast.on{transform:translateX(-50%) translateY(0)}
@@ -244,29 +284,31 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-#print-area.measure{display:block!important;position:absolute;top:0;left:-10000px;visibility:hidden}
-#print-area{width:194mm;background:#fff}
-#print-area .form-doc{overflow:hidden}
+#print-area .form-doc{width:194mm;margin:0 auto}
 @media print{
-  @page{size:A4 portrait;margin:8mm}
+  @page{size:A4 portrait;margin:9mm 8mm}
   html,body{background:#fff!important;color:#000;height:auto!important;overflow:visible!important}
   body>*:not(#print-area){display:none!important}
-  #print-area{display:block!important;position:static!important;visibility:visible!important;width:194mm;height:280mm;overflow:hidden;page-break-after:avoid;break-after:avoid}
+  #print-area{display:block!important}
   #print-area *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .form-doc table,.form-doc tr{page-break-inside:avoid}
+  .form-doc{font-size:13.5px}
+  .form-doc .fh{padding:12px 18px}
+  .form-doc .blk{break-inside:avoid;page-break-inside:avoid}
+  .form-doc .sec{break-after:avoid;page-break-after:avoid}
+  .form-doc tr{break-inside:avoid;page-break-inside:avoid}
+  .form-doc .ff{break-inside:avoid}
+  .grp-doc thead{display:table-header-group}
 }
 </style>
 </head>
 <body>
 <div id="bg-grad"></div>
 <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
-<div id="bg-pattern"></div>
 <canvas id="bg-canvas"></canvas>
 <div class="scanline"></div>
 <canvas id="confetti"></canvas>
 
 <header class="top">
-  <div id="demoBar" class="demo-bar hidden">وضع المعاينة: الصفحة لسه مش مربوطة بالشيت — البيانات بتتحفظ مؤقتًا على الجهاز ده بس للتجربة</div>
   <div class="in">
     <a class="logo" href="#" id="homeLink" aria-label="الرئيسية">
       <img src="https://www.hayakarima.com/assets/uploads/media-uploader/lloogg1784226794.png" alt="مؤسسة حياة كريمة" id="logoImg">
@@ -457,6 +499,7 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
       <h2>ملفات أعضاء القطاع الميداني</h2>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
         <label class="switch"><input type="checkbox" id="openToggle"><i></i><span id="openLbl">التسجيل مفتوح</span></label>
+        <button class="btn sm" id="groupBtn">📑 تقرير مجمع</button>
         <button class="btn teal sm" id="exportBtn">⬇️ تصدير Excel</button>
         <button class="btn ghost sm" id="refreshBtn">↻ تحديث</button>
         <button class="btn ghost sm" id="logoutBtn">خروج</button>
@@ -470,7 +513,7 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
       <select class="inp" id="fStatus"></select>
     </div>
     <div class="glass tbl-wrap">
-      <table class="tbl"><thead><tr><th>المرجع</th><th>الاسم</th><th>الرقم القومي</th><th>مقر العمل</th><th>الوظيفة</th><th>التعاقد</th><th>آخر تحديث</th><th>الحالة</th></tr></thead>
+      <table class="tbl"><thead><tr><th style="width:50px">الصورة</th><th>المرجع</th><th>الاسم</th><th>الرقم القومي</th><th>مقر العمل</th><th>الوظيفة</th><th>التعاقد</th><th>آخر تحديث</th><th>الحالة</th></tr></thead>
       <tbody id="tbody"></tbody></table>
     </div>
   </section>
@@ -482,15 +525,30 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
       <b id="mTitle">ملف العضو</b>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <select class="inp" id="mStatus" style="width:auto;padding:6px 34px 6px 10px;font-size:13px"></select>
-        <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" id="mWithId" checked> إرفاق صورة البطاقة</label>
+        <button class="btn ghost sm" id="chooserBtn" type="button">☑️ اختيار محتوى التقرير</button>
         <button class="btn sm" id="mPrint">🖨️ طباعة / حفظ PDF</button>
         <button class="btn ghost sm" id="mClose">✕</button>
       </div>
     </div>
+    <div class="chooser" id="chooser"></div>
     <div class="sheet-preview" id="mBody"></div>
   </div>
 </div>
 
+<div class="modal" id="gmodal">
+  <div class="glass box">
+    <div class="mbar">
+      <b>تقرير مجمع — <span id="gCount">0</span> عضو (حسب البحث والفلاتر الحالية)</b>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select class="inp" id="gGroup" style="width:auto;padding:6px 34px 6px 10px;font-size:13px"><option value="site">تجميع حسب مقر العمل</option><option value="region">تجميع حسب الإقليم</option><option value="contract">تجميع حسب نوع التعاقد</option><option value="">بدون تجميع</option></select>
+        <button class="btn sm" id="gPrint">🖨️ طباعة / حفظ PDF</button>
+        <button class="btn ghost sm" id="gClose">✕</button>
+      </div>
+    </div>
+    <div class="chooser open" id="gChooser"></div>
+    <div class="sheet-preview" id="gBody"></div>
+  </div>
+</div>
 <div id="print-area"></div>
 <div class="loader" id="loader"><div><div class="spin" style="margin:auto"></div><p id="loaderTxt">جاري التحميل…</p></div></div>
 <div id="toast"></div>
@@ -502,7 +560,7 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
 /* =========================================================
    الإعداد: ضع هنا رابط الـ Web App (ينتهي بـ /exec)
    ========================================================= */
-var API_URL = '';
+var API_URL = 'https://script.google.com/macros/s/AKfycbzMgiPpJVrSTimKPQ106nLjtlL0PS1fPLZNYH059BTj4bl4HS8rmzk3BcitFoRHt2FT/exec';
 
 /* ===== القوائم ===== */
 var GOV_REGION = {
@@ -524,7 +582,7 @@ var L = {
  RELS: ['الأب','الأم','الزوج / الزوجة','الأخ / الأخت','الابن / الابنة','قريب آخر','صديق'],
  COHORTS: ['الدفعة الأولى','الدفعة الثانية','الدفعة الثالثة','الدفعة الرابعة','ضابط','خارج البرنامج'],
  SITES: null, SITES2: null,
- DEPTS: ['إدارة الشئون المالية والإدارية والدعم','إدارة التطوير وتنمية الموارد','إدارة التدخلات الإنسانية','إدارة التدخلات التنموية','إدارة شئون المتطوعين','إدارة الجمعيات القاعدية والقوى الطبيعية','إدارة الرصد والقطاعات الجغرافية','إدارة الإغاثة والطوارئ','ملف الخدمات الصحية','تابع لمدير القطاع مباشرة'],
+ DEPTS: ['إدارة الشئون المالية والإدارية والدعم','إدارة التطوير وتنمية الموارد','إدارة التدخلات الإنسانية','إدارة التدخلات التنموية','إدارة شئون المتطوعين','إدارة الجمعيات القاعدية والقوى الطبيعية','إدارة الرصد والقطاعات الجغرافية','إدارة الإغاثة والطوارئ','ملف الخدمات الصحية','المستوى الإقليمي (الأقاليم)','تابع لمدير القطاع مباشرة'],
  UNITS: ['لا ينطبق','وحدة إدارة التطوير وإدارة الموارد','وحدة الدعم الفني وإدارة البيانات','وحدة التدخلات الإنسانية','وحدة التقارير والمتابعة','وحدة الشئون المالية','وحدة اللوجستيات والشئون الإدارية','وحدة الميديا والإعلام'],
  JOBS: ['مدير القطاع الميداني','مستشار المؤسسة للمتابعة الميدانية','مدير إدارة','مدير ملف الخدمات الصحية','مدير الإقليم','منسق الإقليم','مسئول وحدة','مسئول عام بالإدارة','أخصائي','أخصائي التقارير','أخصائي الخدمات الصحية','مسئول الشئون القانونية','مسئول الموارد البشرية','مسئول علاقات عامة وتواصل','مسئول قواعد بيانات المتطوعين والجمعيات القاعدية','مسئول إغاثة','مسئول متابعة','مدير مكتب','منسق عام المحافظة','نائب منسق عام المحافظة','مدير إداري المقر','مسئول إداري المقر','باحث اجتماعي','منسق ميداني','منسق متطوعين','سكرتارية','سائق','معاون إداري','مساعد إداري','خدمات معاونة','أخرى'],
  CONTRACTS: ['عقد عمل كلي','عقد عمل جزئي','تطوع'],
@@ -536,7 +594,7 @@ var L = {
 L.SITES = CENTRAL.concat(SPECIAL, GOVS);
 L.SITES2 = ['لا يوجد مقر آخر'].concat(L.SITES);
 var GOV_CODES = {'01':'القاهرة','02':'الإسكندرية','03':'بورسعيد','04':'السويس','11':'دمياط','12':'الدقهلية','13':'الشرقية','14':'القليوبية','15':'كفر الشيخ','16':'الغربية','17':'المنوفية','18':'البحيرة','19':'الإسماعيلية','21':'الجيزة','22':'بني سويف','23':'الفيوم','24':'المنيا','25':'أسيوط','26':'سوهاج','27':'قنا','28':'أسوان','29':'الأقصر','31':'البحر الأحمر','32':'الوادي الجديد','33':'مطروح','34':'شمال سيناء','35':'جنوب سيناء','88':'خارج الجمهورية'};
-var STATUSES = ['جديد - في انتظار المراجعة','محدَّث - في انتظار المراجعة','تمت المراجعة - معتمد','مرفوض - يحتاج تصحيح'];
+var STATUSES = ['بيانات مستوردة - تحتاج استكمال','جديد - في انتظار المراجعة','محدَّث - في انتظار المراجعة','تمت المراجعة - معتمد','مرفوض - يحتاج تصحيح'];
 var LABELS = {ref:'رقم المرجع',createdAt:'تاريخ التسجيل',updatedAt:'آخر تحديث',updates:'عدد مرات التحديث',name:'الاسم الرباعي',nid:'الرقم القومي',birthDate:'تاريخ الميلاد',gender:'النوع',birthGov:'محافظة الميلاد',phone:'رقم الهاتف',phone2:'واتساب / هاتف إضافي',email:'البريد الإلكتروني',resGov:'محافظة الإقامة',address:'العنوان التفصيلي',cohort:'الصفة / التبعية',site:'مقر العمل الأساسي',region:'الإقليم',site2:'مقر العمل الإضافي',jobs:'الوظيفة',jobOther:'وظيفة أخرى',dept:'الإدارة',unit:'الوحدة',contract:'نوع التعاقد',volType:'نوع التطوع',joinDate:'تاريخ الانضمام',qual:'المؤهل الدراسي',major:'التخصص',univ:'الجامعة / الجهة',gradYear:'سنة التخرج',origEmployer:'جهة العمل الأصلية',custody:'العهدة',emgName:'جهة اتصال الطوارئ',emgRel:'صلة القرابة',emgPhone:'رقم الطوارئ',notes:'ملاحظات',status:'حالة المراجعة'};
 var LOGO = 'https://www.hayakarima.com/assets/uploads/media-uploader/lloogg1784226794.png';
 
@@ -602,7 +660,7 @@ function mockRun(action,p){
 }
 
 /* ===== التنقل ===== */
-var state={nid:'',authPhone:'',mode:'new',record:null,step:0,photo:null,idCard:null,token:'',rows:[],lastForm:null};
+var state={thumbs:{},filtered:[],nid:'',authPhone:'',mode:'new',record:null,step:0,photo:null,idCard:null,token:'',rows:[],lastForm:null};
 function show(v){
   $$('.view').forEach(function(x){x.classList.remove('on');});
   $('#v-'+v).classList.add('on');
@@ -640,7 +698,7 @@ $('#g-go').addEventListener('click',function(){
     if(j.open===false){ toast('التسجيل وتحديث البيانات مغلق حاليًا من الإدارة','bad'); return; }
     if(!j.exists){ state.mode='new'; state.record=null; state.authPhone=''; startForm(nid); toast('أهلاً بك — استمارة تسجيل جديدة','ok'); return; }
     if(j.needPhone){ $('#g-phone-wrap').classList.remove('hidden'); gPhone.focus(); toast('الرقم القومي مسجل بالفعل — أدخل رقم الهاتف المسجل لتحديث بياناتك','info'); return; }
-    state.mode='update'; state.record=j.record; state.authPhone=phone; startForm(nid); toast('تم تحميل بياناتك المسجلة — عدّل ما تريد ثم احفظ','ok');
+    state.mode='update'; state.record=j.record; state.authPhone=phone; startForm(nid); toast(/مستوردة/.test(j.record.status||'')||!j.record.address?'بياناتك الأساسية موجودة من ملف القطاع — برجاء استكمال الحقول الناقصة ثم الحفظ':'تم تحميل بياناتك المسجلة — عدّل ما تريد ثم احفظ','ok');
   }).catch(function(e){ loading(false); toast(e.message,'bad'); });
 });
 
@@ -840,59 +898,93 @@ function submitForm(){
   }).catch(function(e){ loading(false); toast(e.message,'bad'); });
 }
 $('#doneHome').addEventListener('click',function(){ gNid.value=''; gPhone.value=''; gNid.dispatchEvent(new Event('input')); resetHome(); });
-$('#donePrint').addEventListener('click',function(){ if(state.lastForm) printDoc(buildDoc(state.lastForm.record,state.lastForm.photo,'',[],false,'نسخة العضو')); });
+$('#donePrint').addEventListener('click',function(){ if(state.lastForm) (function(){ var sel=defaultSel(); sel.x={photo:1,idCard:0,log:0,sigs:1}; ['createdAt','updatedAt','updates','status'].forEach(function(k){ sel.f[k]=0; }); printDoc(buildDoc(state.lastForm.record,state.lastForm.photo,'',[],sel,'نسخة العضو')); })(); });
 
-/* ===== الاستمارة المطبوعة ===== */
-function row2(a,b){
-  var r=window.__r;
-  if(!b) return '<tr><td class="k">'+LABELS[a]+'</td><td colspan="3">'+esc(r[a]||'—')+'</td></tr>';
-  return '<tr><td class="k">'+LABELS[a]+'</td><td>'+esc(r[a]||'—')+'</td><td class="k">'+LABELS[b]+'</td><td>'+esc(r[b]||'—')+'</td></tr>';
+/* ===== التقارير: اختيار المحتوى + الاستمارة المطبوعة ===== */
+var RPT_SECTIONS=[
+ {id:'personal',t:'البيانات الشخصية',k:['name','nid','gender','birthDate','birthGov','phone','phone2','email','resGov','address','emgName','emgRel','emgPhone']},
+ {id:'work',t:'بيانات العمل',k:['cohort','contract','volType','site','region','site2','joinDate','jobs','jobOther','dept','unit','origEmployer']},
+ {id:'edu',t:'المؤهل الدراسي والعهدة',k:['qual','major','univ','gradYear','custody','notes']},
+ {id:'rec',t:'بيانات السجل',k:['createdAt','updatedAt','updates','status']}
+];
+var RPT_EXTRAS=[['photo','الصورة الشخصية'],['idCard','صورة البطاقة'],['log','سجل التعديلات'],['sigs','خانات التوقيع']];
+function defaultSel(){ var s={f:{},x:{photo:1,idCard:0,log:1,sigs:1}}; RPT_SECTIONS.forEach(function(sec){ sec.k.forEach(function(k){ s.f[k]=1; }); }); return s; }
+var RSEL=(function(){ try{ var v=JSON.parse(localStorage.getItem('fs_rpt_sel')||'null'); if(v&&v.f&&v.x) return v; }catch(e){} return defaultSel(); })();
+function saveSel(){ try{ localStorage.setItem('fs_rpt_sel',JSON.stringify(RSEL)); }catch(e){} }
+function buildChooser(){
+  var h='<div class="ch-top"><b>اختر محتوى التقرير</b><span><button type="button" class="lnk" data-all="1">تحديد الكل</button> · <button type="button" class="lnk" data-all="0">إلغاء الكل</button> · <button type="button" class="lnk" data-all="d">الافتراضي</button></span></div>';
+  h+='<div class="ch-grp"><div class="ch-h">المرفقات والإضافات</div><div class="ch-items">'+RPT_EXTRAS.map(function(e){ return '<label class="tg"><input type="checkbox" data-x="'+e[0]+'"'+(RSEL.x[e[0]]?' checked':'')+'><span>'+e[1]+'</span></label>'; }).join('')+'</div></div>';
+  RPT_SECTIONS.forEach(function(sec){
+    h+='<div class="ch-grp"><div class="ch-h"><label class="tg sec"><input type="checkbox" data-sec="'+sec.id+'"><span>'+sec.t+'</span></label></div><div class="ch-items">'+
+      sec.k.map(function(k){ return '<label class="tg"><input type="checkbox" data-f="'+k+'"'+(RSEL.f[k]?' checked':'')+'><span>'+LABELS[k]+'</span></label>'; }).join('')+'</div></div>';
+  });
+  $('#chooser').innerHTML=h; syncSecBoxes();
 }
-function buildDoc(r,photo,idCard,log,withId,tag){
-  window.__r=r;
-  var now=new Date().toLocaleString('ar-EG',{dateStyle:'long',timeStyle:'short'});
-  var h='<div class="form-doc">';
-  h+='<div class="fh"><img src="'+LOGO+'" alt="" onerror="this.style.visibility=\'hidden\'"><div class="t"><b>استمارة تحديث بيانات عضو القطاع الميداني</b><span>مؤسسة حياة كريمة — القطاع الميداني</span></div><div class="rf">رقم المرجع<br><b style="font-size:18px">'+esc(r.ref||'—')+'</b></div></div>';
-  h+='<div class="fb"><div class="idrow"><div class="ph" style="'+(photo&&/^data:image/.test(photo)?'background-image:url('+photo+')':'')+'">'+(photo?'':'بدون صورة')+'</div><table>'+
-     row2('name')+row2('nid','gender')+row2('birthDate','birthGov')+row2('phone','phone2')+row2('email','resGov')+'</table></div>';
-  h+='<table>'+row2('address')+row2('emgName','emgRel')+row2('emgPhone')+'</table>';
-  h+='<div class="sec">بيانات العمل</div><table>'+row2('cohort','contract')+(r.volType?row2('volType'):'')+row2('site','region')+row2('site2','joinDate')+row2('jobs')+(r.jobOther?row2('jobOther'):'')+(r.dept?row2('dept','unit'):'')+row2('origEmployer')+'</table>';
-  h+='<div class="sec">المؤهل الدراسي والعهدة</div><table>'+row2('qual','major')+row2('univ','gradYear')+row2('custody')+(r.notes?row2('notes'):'')+'</table>';
-  h+='<div class="sec">بيانات السجل</div><table>'+row2('createdAt','updatedAt')+(r.status?row2('updates','status'):'')+'</table>';
-  if(log&&log.length){ var lg=log.slice(-6); h+='<div class="sec">سجل التعديلات'+(log.length>6?' (آخر 6 من '+log.length+')':'')+'</div><table class="logt"><tr><td class="k">التاريخ</td><td class="k">الإجراء</td><td class="k" style="width:auto">التفاصيل</td></tr>'+lg.map(function(l){return '<tr><td>'+esc(l.at)+'</td><td>'+esc(l.action)+'</td><td>'+esc(String(l.details||'').slice(0,220))+'</td></tr>';}).join('')+'</table>'; }
-  if(withId&&idCard){
-    h+='<div class="sec">صورة بطاقة الرقم القومي</div>';
-    h+= /^data:image/.test(idCard) ? '<img class="idimg" src="'+idCard+'" alt="">' : '<p style="padding:6px 10px">صورة البطاقة مرفوعة بصيغة PDF — متاحة في مجلد المرفقات على Google Drive.</p>';
+function syncSecBoxes(){ RPT_SECTIONS.forEach(function(sec){ var on=sec.k.filter(function(k){return RSEL.f[k];}).length, b=$('[data-sec="'+sec.id+'"]'); b.checked=on===sec.k.length; b.indeterminate=on>0&&on<sec.k.length; }); }
+$('#chooser').addEventListener('change',function(e){
+  var t=e.target; if(t.dataset.x) RSEL.x[t.dataset.x]=t.checked?1:0;
+  if(t.dataset.f) RSEL.f[t.dataset.f]=t.checked?1:0;
+  if(t.dataset.sec){ RPT_SECTIONS.forEach(function(sec){ if(sec.id===t.dataset.sec) sec.k.forEach(function(k){ RSEL.f[k]=t.checked?1:0; }); }); $$('[data-f]',$('#chooser')).forEach(function(c){ c.checked=!!RSEL.f[c.dataset.f]; }); }
+  syncSecBoxes(); saveSel(); if(current) renderModal();
+});
+$('#chooser').addEventListener('click',function(e){
+  var b=e.target.closest('[data-all]'); if(!b) return;
+  if(b.dataset.all==='d') RSEL=defaultSel(); else { var v=b.dataset.all==='1'?1:0; RPT_SECTIONS.forEach(function(s){ s.k.forEach(function(k){ RSEL.f[k]=v; }); }); RPT_EXTRAS.forEach(function(x){ RSEL.x[x[0]]=v; }); }
+  saveSel(); buildChooser(); if(current) renderModal();
+});
+$('#chooserBtn').addEventListener('click',function(){ $('#chooser').classList.toggle('open'); this.classList.toggle('on'); });
+
+function kvTable(r,keys){
+  if(!keys.length) return '';
+  var h='<table>';
+  for(var i=0;i<keys.length;i+=2){
+    var a=keys[i], b=keys[i+1];
+    var wide=function(k){ return ['address','jobs','notes','major','origEmployer','custody','dept','jobOther'].indexOf(k)>=0; };
+    if(!b || wide(a) || wide(b)){ h+='<tr><td class="k">'+LABELS[a]+'</td><td colspan="3">'+esc(r[a]||'—')+'</td></tr>'; if(b){ i--; } continue; }
+    h+='<tr><td class="k">'+LABELS[a]+'</td><td>'+esc(r[a]||'—')+'</td><td class="k">'+LABELS[b]+'</td><td>'+esc(r[b]||'—')+'</td></tr>';
   }
-  h+='<div class="sigs"><div>توقيع العضو</div><div>مسئول الموارد البشرية</div><div>مدير القطاع الميداني</div></div>';
-  h+='</div>';
-  h+='<div class="ff"><span>'+esc(tag||'')+'</span><span>تاريخ الطباعة: '+now+'</span><span>سري — للاستخدام الداخلي</span></div></div>';
+  return h+'</table>';
+}
+function docHead(title,ref){
+  return '<div class="fh"><img src="'+LOGO+'" alt="" onerror="this.style.visibility=\'hidden\'"><div class="t"><b>'+title+'</b><span>مؤسسة حياة كريمة — القطاع الميداني</span></div><div class="rf">'+(ref?'رقم المرجع<br><b style="font-size:18px">'+esc(ref)+'</b>':'')+'</div></div>';
+}
+function docFoot(tag){ var now=new Date().toLocaleString('ar-EG',{dateStyle:'long',timeStyle:'short'}); return '<div class="ff"><span>'+esc(tag||'')+'</span><span>تاريخ الطباعة: '+now+'</span><span>سري — للاستخدام الداخلي</span></div>'; }
+/* sel: {f:{key:1}, x:{photo,idCard,log,sigs}} */
+function buildDoc(r,photo,idCard,log,sel,tag){
+  window.__r=r; sel=sel||defaultSel();
+  var on=function(k){ return !!sel.f[k]; };
+  var h='<div class="form-doc">'+docHead('استمارة بيانات عضو القطاع الميداني',r.ref)+'<div class="fb">';
+  var pk=RPT_SECTIONS[0].k.filter(on);
+  var showPh=!!sel.x.photo;
+  if(pk.length||showPh){
+    h+='<div class="blk"><div class="sec">'+RPT_SECTIONS[0].t+'</div>';
+    if(showPh){
+      var top=pk.slice(0,6), rest=pk.slice(6);
+      h+='<div class="idrow"><div class="ph" style="'+(photo&&/^data:image/.test(photo)?'background-image:url('+photo+')':'')+'">'+(photo?'':'لا توجد صورة')+'</div>'+(top.length?kvTable(r,top):'<div style="flex:1;font-size:22px;font-weight:800;color:#023830;align-self:center">'+esc(r.name)+'</div>')+'</div>'+kvTable(r,rest);
+    } else h+=kvTable(r,pk);
+    h+='</div>';
+  }
+  RPT_SECTIONS.slice(1).forEach(function(sec){
+    var ks=sec.k.filter(on).filter(function(k){ return !(['volType','jobOther','dept','unit','notes'].indexOf(k)>=0 && !r[k]); });
+    if(ks.length) h+='<div class="blk"><div class="sec">'+sec.t+'</div>'+kvTable(r,ks)+'</div>';
+  });
+  if(sel.x.log&&log&&log.length){ var lg=log.slice(-8); h+='<div class="blk"><div class="sec">سجل التعديلات'+(log.length>8?' (آخر 8 من '+log.length+')':'')+'</div><table class="logt"><tr><td class="k">التاريخ</td><td class="k">الإجراء</td><td class="k" style="width:auto">التفاصيل</td></tr>'+lg.map(function(l){return '<tr><td>'+esc(l.at)+'</td><td>'+esc(l.action)+'</td><td>'+esc(String(l.details||'').slice(0,260))+'</td></tr>';}).join('')+'</table></div>'; }
+  if(sel.x.idCard){
+    h+='<div class="blk idblk"><div class="sec">صورة بطاقة الرقم القومي (وجه وظهر)</div>';
+    h+= idCard&&/^data:image/.test(idCard) ? '<img class="idimg" src="'+idCard+'" alt="">' : '<p style="padding:6px 10px;color:#555">'+(idCard?'صورة البطاقة مرفوعة بصيغة PDF — متاحة في مجلد المرفقات على Google Drive.':'لا توجد صورة بطاقة مرفوعة.')+'</p>';
+    h+='</div>';
+  }
+  if(sel.x.sigs) h+='<div class="sigs blk"><div>توقيع العضو</div><div>مسئول الموارد البشرية</div><div>مدير القطاع الميداني</div></div>';
+  h+='</div>'+docFoot(tag)+'</div>';
   return h;
 }
-/* ضبط الاستمارة لتملأ صفحة A4 واحدة بالظبط */
-function fitOnePage(){
-  var pa=$('#print-area'), doc=$('.form-doc',pa); if(!doc) return 1;
-  var MM=96/25.4, W=194, maxH=277*MM;
-  pa.classList.add('measure');
-  function apply(z){ doc.style.zoom=z; doc.style.width=(W/z)+'mm'; return doc.getBoundingClientRect().height; }
-  var z=1, h=apply(1);
-  for(var i=0;i<12;i++){            // تقريب تدريجي حتى يملأ الصفحة بالظبط بدون ما يزيد
-    var nz=Math.max(.5,Math.min(1.3,z*Math.sqrt(maxH/h)));
-    if(Math.abs(nz-z)<.004) break;
-    z=nz; h=apply(z);
-  }
-  while(h>maxH && z>.5){ z*=.985; h=apply(z); }
-  pa.classList.remove('measure');
-  return z;
-}
-window.__fitOnePage=fitOnePage;
-function printDoc(html){
+function printDoc(html,title){
   var pa=$('#print-area'); pa.innerHTML=html;
-  var old=document.title; document.title='ملف تحديث بيانات - '+((window.__r&&window.__r.name)||'')+' - '+((window.__r&&window.__r.nid)||'');
+  var old=document.title; document.title=title||('ملف بيانات - '+((window.__r&&window.__r.name)||'')+' - '+((window.__r&&window.__r.nid)||''));
   var imgs=$$('img',pa), left=imgs.length;
-  function go(){ fitOnePage(); setTimeout(function(){ window.print(); document.title=old; },150); }
+  function go(){ setTimeout(function(){ window.print(); document.title=old; },200); }
   if(!left) return go();
-  imgs.forEach(function(im){ if(im.complete) { if(--left===0) go(); } else im.addEventListener('load',function(){ if(--left===0) go(); }), im.addEventListener('error',function(){ if(--left===0) go(); }); });
+  imgs.forEach(function(im){ var done=function(){ if(--left===0) go(); }; if(im.complete) done(); else { im.addEventListener('load',done); im.addEventListener('error',done); } });
 }
 
 /* ===== الإدارة ===== */
@@ -913,9 +1005,23 @@ $('#refreshBtn').addEventListener('click',loadRows);
 function authErr(e){ if(/الجلسة/.test(e.message)){ state.token=''; show('login'); } toast(e.message,'bad'); }
 function loadRows(){
   loading(true,'جاري تحميل الملفات…');
-  api('adminList',{token:state.token}).then(function(j){ loading(false); state.rows=j.rows||[]; renderRows(); }).catch(function(e){ loading(false); authErr(e); });
+  api('adminList',{token:state.token}).then(function(j){ loading(false); state.rows=j.rows||[]; renderRows(); loadThumbs(); }).catch(function(e){ loading(false); authErr(e); });
 }
-function pill(s){ var c=/جديد/.test(s)?'new':/محدَّث/.test(s)?'upd':/معتمد/.test(s)?'okk':/مرفوض/.test(s)?'rej':''; return '<span class="st-pill '+c+'">'+esc(s||'—')+'</span>'; }
+var thumbsBusy=false;
+function loadThumbs(){
+  if(thumbsBusy) return; thumbsBusy=true;
+  var need=state.rows.filter(function(r){ return r.hasPhoto && !state.thumbs[r.nid]; }).map(function(r){ return r.nid; });
+  (function next(){
+    if(!need.length||!state.token){ thumbsBusy=false; return; }
+    var batch=need.splice(0,40);
+    api('adminThumbs',{token:state.token,nids:batch}).then(function(j){
+      var t=j.thumbs||{}; Object.keys(t).forEach(function(n){ state.thumbs[n]=t[n]; var el=$('[data-th="'+n+'"]'); if(el){ var im=document.createElement('img'); im.className='av'; im.src=t[n]; el.replaceWith(im); } });
+      batch.forEach(function(n){ if(!t[n]){ var el=$('[data-th="'+n+'"]'); if(el) el.textContent='👤'; } });
+      next();
+    }).catch(function(){ thumbsBusy=false; $$('[data-th]').forEach(function(el){ el.textContent='👤'; }); });
+  })();
+}
+function pill(s){ var c=/مستوردة/.test(s)?'imp':/جديد/.test(s)?'new':/محدَّث/.test(s)?'upd':/معتمد/.test(s)?'okk':/مرفوض/.test(s)?'rej':''; return '<span class="st-pill '+c+'">'+esc(s||'—')+'</span>'; }
 function renderRows(){
   var q=$('#q').value.trim(), qd=digits(q), fr=$('#fRegion').value, fs=$('#fSite').value, fst=$('#fStatus').value;
   var rows=state.rows.filter(function(r){
@@ -923,14 +1029,16 @@ function renderRows(){
     if(q){ var hay=(r.name+' '+r.ref).toLowerCase(); if(hay.indexOf(q.toLowerCase())<0 && !(qd&&(String(r.nid).indexOf(qd)>=0||String(r.phone).indexOf(qd)>=0))) return false; }
     return true;
   });
+  state.filtered=rows;
   var all=state.rows;
   function cnt(f){ return all.filter(f).length; }
-  var st=[[all.length,'إجمالي المسجلين'],[cnt(function(r){return /انتظار/.test(r.status);}),'في انتظار المراجعة'],[cnt(function(r){return r.contract==='عقد عمل كلي'||r.contract==='عقد عمل جزئي';}),'بعقد عمل (كلي/جزئي)'],[cnt(function(r){return r.contract==='تطوع';}),'متطوعين']];
+  var st=[[all.length,'إجمالي المسجلين'],[cnt(function(r){return /انتظار/.test(r.status);}),'في انتظار المراجعة'],[cnt(function(r){return /مستوردة/.test(r.status);}),'تحتاج استكمال بيانات'],[cnt(function(r){return r.contract==='عقد عمل كلي'||r.contract==='عقد عمل جزئي';}),'بعقد عمل (كلي/جزئي)'],[cnt(function(r){return r.contract==='تطوع';}),'متطوعين']];
   $('#stats').innerHTML=st.map(function(s){return '<div class="glass stat"><b data-n="'+s[0]+'">0</b><span>'+s[1]+'</span></div>';}).join('');
   $$('#stats b').forEach(countUp);
   $('#tbody').innerHTML = rows.length ? rows.map(function(r){
-    return '<tr data-nid="'+esc(r.nid)+'"><td>'+esc(r.ref)+'</td><td><b>'+esc(r.name)+'</b></td><td style="direction:ltr;text-align:right">'+esc(r.nid)+'</td><td>'+esc(r.site)+'</td><td>'+esc(r.jobs)+'</td><td>'+esc(r.contract)+'</td><td>'+esc(r.updatedAt)+'</td><td>'+pill(r.status)+'</td></tr>';
-  }).join('') : '<tr><td colspan="8" style="text-align:center;padding:30px;color:#9fc7c1">لا توجد نتائج</td></tr>';
+    var th=state.thumbs[r.nid];
+    return '<tr data-nid="'+esc(r.nid)+'"><td>'+(th?'<img class="av" src="'+th+'" alt="">':'<span class="av" data-th="'+esc(r.nid)+'">'+(r.hasPhoto?'⏳':'👤')+'</span>')+'</td><td>'+esc(r.ref)+'</td><td><b>'+esc(r.name)+'</b></td><td style="direction:ltr;text-align:right">'+esc(r.nid)+'</td><td>'+esc(r.site)+'</td><td>'+esc(r.jobs)+'</td><td>'+esc(r.contract)+'</td><td>'+esc(r.updatedAt)+'</td><td>'+pill(r.status)+'</td></tr>';
+  }).join('') : '<tr><td colspan="9" style="text-align:center;padding:30px;color:#9fc7c1">لا توجد نتائج</td></tr>';
 }
 function countUp(el){ var n=+el.dataset.n, t0=performance.now(); (function f(t){ var p=Math.min(1,(t-t0)/900); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); })(t0); }
 ['input','change'].forEach(function(ev){ ['#q','#fRegion','#fSite','#fStatus'].forEach(function(s){ $(s).addEventListener(ev,renderRows); }); });
@@ -945,12 +1053,12 @@ function openProfile(nid){
     renderModal(); $('#modal').classList.add('on');
   }).catch(function(e){ loading(false); authErr(e); });
 }
-function renderModal(){ $('#mBody').innerHTML=buildDoc(current.record,current.photo,current.idCard,current.log,$('#mWithId').checked,'نسخة الإدارة'); }
-$('#mWithId').addEventListener('change',function(){ if(current) renderModal(); });
+function renderModal(){ $('#mBody').innerHTML=buildDoc(current.record,current.photo,current.idCard,current.log,RSEL,'نسخة الإدارة'); }
+buildChooser();
 $('#mClose').addEventListener('click',function(){ $('#modal').classList.remove('on'); });
 $('#modal').addEventListener('click',function(e){ if(e.target.id==='modal') $('#modal').classList.remove('on'); });
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') $('#modal').classList.remove('on'); });
-$('#mPrint').addEventListener('click',function(){ if(current) printDoc(buildDoc(current.record,current.photo,current.idCard,current.log,$('#mWithId').checked,'نسخة الإدارة')); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ $('#modal').classList.remove('on'); $('#gmodal').classList.remove('on'); } });
+$('#mPrint').addEventListener('click',function(){ if(current) printDoc(buildDoc(current.record,current.photo,current.idCard,current.log,RSEL,'نسخة الإدارة')); });
 $('#mStatus').addEventListener('change',function(){
   var s=this.value; loading(true,'جاري الحفظ…');
   api('adminStatus',{token:state.token,nid:current.record.nid,status:s}).then(function(){
@@ -981,6 +1089,55 @@ $('#exportBtn').addEventListener('click',function(){
     }
     toast('تم تصدير '+j.rows.length+' سجل','ok');
   }).catch(function(e){ loading(false); authErr(e); });
+});
+
+/* ===== التقرير المجمع ===== */
+var GCOLS=[['photo','الصورة'],['ref','المرجع'],['name','الاسم'],['nid','الرقم القومي'],['phone','الهاتف'],['cohort','الصفة'],['site','مقر العمل'],['region','الإقليم'],['jobs','الوظيفة'],['contract','التعاقد'],['status','الحالة']];
+var GSEL=(function(){ try{ var v=JSON.parse(localStorage.getItem('fs_grp_sel')||'null'); if(v) return v; }catch(e){} return {photo:1,ref:1,name:1,nid:0,phone:1,cohort:0,site:1,region:0,jobs:1,contract:1,status:0}; })();
+function buildGChooser(){
+  $('#gChooser').innerHTML='<div class="ch-top"><b>الأعمدة الظاهرة في التقرير</b></div><div class="ch-items">'+GCOLS.map(function(c){ return '<label class="tg"><input type="checkbox" data-g="'+c[0]+'"'+(GSEL[c[0]]?' checked':'')+'><span>'+c[1]+'</span></label>'; }).join('')+'</div>';
+}
+function buildGroupDoc(){
+  var rows=(state.filtered||[]).slice(), g=$('#gGroup').value, cols=GCOLS.filter(function(c){ return GSEL[c[0]] && c[0]!==g; });
+  rows.sort(function(a,b){ return String(a[g]||'').localeCompare(String(b[g]||''),'ar') || String(a.name).localeCompare(String(b.name),'ar'); });
+  var h='<div class="form-doc grp-doc">'+docHead('تقرير مجمع — أعضاء القطاع الميداني','')+'<div class="fb"><table><thead><tr><th>#</th>'+cols.map(function(c){ return '<th>'+c[1]+'</th>'; }).join('')+'</tr></thead><tbody>';
+  var last=null, i=0;
+  rows.forEach(function(r){
+    if(g && r[g]!==last){ last=r[g]; var n=rows.filter(function(x){ return x[g]===last; }).length; h+='<tr class="gh"><td colspan="'+(cols.length+1)+'">'+esc(last||'غير محدد')+' — '+n+' عضو</td></tr>'; i=0; }
+    i++;
+    h+='<tr><td style="text-align:center">'+i+'</td>'+cols.map(function(c){
+      if(c[0]==='photo') return '<td>'+(state.thumbs[r.nid]?'<img class="gp" src="'+state.thumbs[r.nid]+'" alt="">':'<div class="gp"></div>')+'</td>';
+      return '<td'+(c[0]==='nid'||c[0]==='phone'?' style="direction:ltr;text-align:center"':'')+'>'+esc(r[c[0]]||'—')+'</td>';
+    }).join('')+'</tr>';
+  });
+  h+='</tbody></table></div>'+docFoot('إجمالي: '+rows.length+' عضو')+'</div>';
+  return h;
+}
+function renderGroup(){ $('#gCount').textContent=(state.filtered||[]).length; $('#gBody').innerHTML=buildGroupDoc(); }
+$('#groupBtn').addEventListener('click',function(){
+  if(!(state.filtered||[]).length){ toast('لا توجد نتائج لعمل تقرير','bad'); return; }
+  buildGChooser(); renderGroup(); $('#gmodal').classList.add('on');
+  if(GSEL.photo && state.rows.some(function(r){ return r.hasPhoto && !state.thumbs[r.nid]; })) toast('الصور لسه بتتحمل — هتظهر تلقائيًا خلال ثواني','info');
+});
+$('#gChooser').addEventListener('change',function(e){ var t=e.target; if(t.dataset.g){ GSEL[t.dataset.g]=t.checked?1:0; try{ localStorage.setItem('fs_grp_sel',JSON.stringify(GSEL)); }catch(x){} renderGroup(); } });
+$('#gGroup').addEventListener('change',renderGroup);
+$('#gClose').addEventListener('click',function(){ $('#gmodal').classList.remove('on'); });
+$('#gmodal').addEventListener('click',function(e){ if(e.target.id==='gmodal') $('#gmodal').classList.remove('on'); });
+$('#gPrint').addEventListener('click',function(){ printDoc(buildGroupDoc(),'تقرير مجمع - القطاع الميداني - '+new Date().toISOString().slice(0,10)); });
+setInterval(function(){ if($('#gmodal').classList.contains('on') && GSEL.photo){ var miss=$$('#gBody div.gp').length; if(miss && Object.keys(state.thumbs).length) renderGroup(); } },4000);
+
+/* ===== تفاعل الأزرار ===== */
+document.addEventListener('pointerdown',function(e){
+  var b=e.target.closest('.btn,.nav button'); if(!b) return;
+  var r=b.getBoundingClientRect(), d=Math.max(r.width,r.height), s=document.createElement('span');
+  s.className='rp'; s.style.width=s.style.height=d+'px'; s.style.left=(e.clientX-r.left-d/2)+'px'; s.style.top=(e.clientY-r.top-d/2)+'px';
+  b.appendChild(s); setTimeout(function(){ s.remove(); },650);
+});
+$$('.sp').forEach(function(c){ c.addEventListener('pointermove',function(e){ var r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px'); }); });
+$$('.gate').forEach(function(g){
+  g.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; var r=g.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; g.style.transform='perspective(900px) rotateY('+(x*4)+'deg) rotateX('+(-y*4)+'deg)'; });
+  g.addEventListener('pointerleave',function(){ g.style.transform=''; });
+  g.classList.add('tilt');
 });
 
 /* ===== الخلفية التفاعلية ===== */
@@ -1020,8 +1177,7 @@ function confetti(){
 }
 
 /* ===== البداية ===== */
-if(!API_URL) $('#demoBar').classList.remove('hidden');
-else api('config').then(function(j){ if(!j.open) toast('التسجيل مغلق حاليًا من الإدارة','info'); }).catch(function(){});
+if(API_URL) api('config').then(function(j){ if(!j.open) toast('التسجيل مغلق حاليًا من الإدارة','info'); }).catch(function(){});
 })();
 </script>
 </body>
