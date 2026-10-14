@@ -212,7 +212,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
 .form-doc .sigs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;text-align:center;font-weight:700;color:#023830}
 .form-doc .sigs div{border-top:1.5px dashed #023830;padding-top:6px}
 .form-doc .ff{display:flex;justify-content:space-between;font-size:12px;color:#555;border-top:1px solid #ddd;padding:8px 22px}
-.form-doc .idimg{max-width:100%;max-height:420px;display:block;margin:6px auto;border:1px solid #ccc}
+.form-doc .idimg{max-width:100%;max-height:62mm;display:block;margin:4px auto;border:1px solid #ccc}
 .form-doc .logt td{font-size:13px}
 #print-area{display:none}
 
@@ -244,17 +244,16 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+#print-area.measure{display:block!important;position:absolute;top:0;left:-10000px;visibility:hidden}
+#print-area{width:194mm;background:#fff}
+#print-area .form-doc{overflow:hidden}
 @media print{
-  @page{size:A4;margin:10mm}
-  body{background:#fff!important;color:#000}
+  @page{size:A4 portrait;margin:8mm}
+  html,body{background:#fff!important;color:#000;height:auto!important;overflow:visible!important}
   body>*:not(#print-area){display:none!important}
-  #print-area{display:block!important}
-  .form-doc{font-size:16px}
-  .form-doc .sec,.form-doc .fh .t b{font-size:18px}
-  .form-doc .fh,.form-doc .sec,.form-doc td.k{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .pb{page-break-before:always}
-  .form-doc table,.form-doc .idrow,.form-doc .sigs{page-break-inside:avoid}
-  .form-doc .sec{page-break-after:avoid;break-after:avoid}
+  #print-area{display:block!important;position:static!important;visibility:visible!important;width:194mm;height:280mm;overflow:hidden;page-break-after:avoid;break-after:avoid}
+  #print-area *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .form-doc table,.form-doc tr{page-break-inside:avoid}
 }
 </style>
 </head>
@@ -380,8 +379,6 @@ footer{text-align:center;color:#9fc7c1;font-size:13px;padding:24px 16px;border-t
             <select class="inp" name="volType" data-opts="VOLTYPES"></select><div class="msg"></div></div>
           <div class="f"><label>جهة العمل الأصلية <span class="opt">(إن وجدت)</span></label>
             <input class="inp" name="origEmployer" placeholder="مثال: وزارة التربية والتعليم"><div class="msg"></div></div>
-          <div class="f"><label>إقامة فندقية <span class="req">*</span></label>
-            <select class="inp" name="hotel" data-req="1" data-opts="YESNO"></select><div class="msg"></div></div>
         </div>
       </div>
       <!-- 3 -->
@@ -532,7 +529,6 @@ var L = {
  JOBS: ['مدير القطاع الميداني','مستشار المؤسسة للمتابعة الميدانية','مدير إدارة','مدير ملف الخدمات الصحية','مدير الإقليم','منسق الإقليم','مسئول وحدة','مسئول عام بالإدارة','أخصائي','أخصائي التقارير','أخصائي الخدمات الصحية','مسئول الشئون القانونية','مسئول الموارد البشرية','مسئول علاقات عامة وتواصل','مسئول قواعد بيانات المتطوعين والجمعيات القاعدية','مسئول إغاثة','مسئول متابعة','مدير مكتب','منسق عام المحافظة','نائب منسق عام المحافظة','مدير إداري المقر','مسئول إداري المقر','باحث اجتماعي','منسق ميداني','منسق متطوعين','سكرتارية','سائق','معاون إداري','مساعد إداري','خدمات معاونة','أخرى'],
  CONTRACTS: ['عقد عمل كلي','عقد عمل جزئي','تطوع'],
  VOLTYPES: ['متطوع / مداوم','متطوع / أونلاين'],
- YESNO: ['لا','نعم'],
  QUALS: ['بدون مؤهل','شهادة متوسطة','مؤهل فوق المتوسط','بكالوريوس / ليسانس','دبلومة دراسات عليا','ماجستير','دكتوراه'],
  YEARS: (function(){ var a=[], y=new Date().getFullYear(); for(var i=y;i>=1965;i--) a.push(String(i)); return a; })(),
  CUSTODY: ['لا يوجد عهدة','لابتوب','موبايل','خط اتصال','خط انترنت','ماي فاي','هارد','تابلت']
@@ -541,7 +537,7 @@ L.SITES = CENTRAL.concat(SPECIAL, GOVS);
 L.SITES2 = ['لا يوجد مقر آخر'].concat(L.SITES);
 var GOV_CODES = {'01':'القاهرة','02':'الإسكندرية','03':'بورسعيد','04':'السويس','11':'دمياط','12':'الدقهلية','13':'الشرقية','14':'القليوبية','15':'كفر الشيخ','16':'الغربية','17':'المنوفية','18':'البحيرة','19':'الإسماعيلية','21':'الجيزة','22':'بني سويف','23':'الفيوم','24':'المنيا','25':'أسيوط','26':'سوهاج','27':'قنا','28':'أسوان','29':'الأقصر','31':'البحر الأحمر','32':'الوادي الجديد','33':'مطروح','34':'شمال سيناء','35':'جنوب سيناء','88':'خارج الجمهورية'};
 var STATUSES = ['جديد - في انتظار المراجعة','محدَّث - في انتظار المراجعة','تمت المراجعة - معتمد','مرفوض - يحتاج تصحيح'];
-var LABELS = {ref:'رقم المرجع',createdAt:'تاريخ التسجيل',updatedAt:'آخر تحديث',updates:'عدد مرات التحديث',name:'الاسم الرباعي',nid:'الرقم القومي',birthDate:'تاريخ الميلاد',gender:'النوع',birthGov:'محافظة الميلاد',phone:'رقم الهاتف',phone2:'واتساب / هاتف إضافي',email:'البريد الإلكتروني',resGov:'محافظة الإقامة',address:'العنوان التفصيلي',cohort:'الصفة / التبعية',site:'مقر العمل الأساسي',region:'الإقليم',site2:'مقر العمل الإضافي',jobs:'الوظيفة',jobOther:'وظيفة أخرى',dept:'الإدارة',unit:'الوحدة',contract:'نوع التعاقد',volType:'نوع التطوع',joinDate:'تاريخ الانضمام',qual:'المؤهل الدراسي',major:'التخصص',univ:'الجامعة / الجهة',gradYear:'سنة التخرج',origEmployer:'جهة العمل الأصلية',custody:'العهدة',hotel:'إقامة فندقية',emgName:'جهة اتصال الطوارئ',emgRel:'صلة القرابة',emgPhone:'رقم الطوارئ',notes:'ملاحظات',status:'حالة المراجعة'};
+var LABELS = {ref:'رقم المرجع',createdAt:'تاريخ التسجيل',updatedAt:'آخر تحديث',updates:'عدد مرات التحديث',name:'الاسم الرباعي',nid:'الرقم القومي',birthDate:'تاريخ الميلاد',gender:'النوع',birthGov:'محافظة الميلاد',phone:'رقم الهاتف',phone2:'واتساب / هاتف إضافي',email:'البريد الإلكتروني',resGov:'محافظة الإقامة',address:'العنوان التفصيلي',cohort:'الصفة / التبعية',site:'مقر العمل الأساسي',region:'الإقليم',site2:'مقر العمل الإضافي',jobs:'الوظيفة',jobOther:'وظيفة أخرى',dept:'الإدارة',unit:'الوحدة',contract:'نوع التعاقد',volType:'نوع التطوع',joinDate:'تاريخ الانضمام',qual:'المؤهل الدراسي',major:'التخصص',univ:'الجامعة / الجهة',gradYear:'سنة التخرج',origEmployer:'جهة العمل الأصلية',custody:'العهدة',emgName:'جهة اتصال الطوارئ',emgRel:'صلة القرابة',emgPhone:'رقم الطوارئ',notes:'ملاحظات',status:'حالة المراجعة'};
 var LOGO = 'https://www.hayakarima.com/assets/uploads/media-uploader/lloogg1784226794.png';
 
 /* ===== أدوات ===== */
@@ -823,7 +819,7 @@ function collect(){
 function buildReview(){
   var d=collect(), meta=parseNid(d.nid);
   var sec=[['البيانات الشخصية',['name','nid','phone','phone2','email','resGov','address','emgName','emgRel','emgPhone']],
-           ['بيانات العمل',['cohort','site','region','site2','dept','unit','jobs','jobOther','contract','volType','joinDate','origEmployer','hotel']],
+           ['بيانات العمل',['cohort','site','region','site2','dept','unit','jobs','jobOther','contract','volType','joinDate','origEmployer']],
            ['المؤهل والعهدة',['qual','major','univ','gradYear','custody','notes']]];
   var h='';
   sec.forEach(function(s){ h+='<h4>'+s[0]+'</h4>'; s[1].forEach(function(k){ if(d[k]) h+='<div><b>'+LABELS[k]+'</b><span>'+esc(d[k])+'</span></div>'; }); if(s[0]==='البيانات الشخصية') h+='<div><b>تاريخ الميلاد / النوع</b><span>'+meta.birthDate+' — '+meta.gender+'</span></div>'; });
@@ -860,25 +856,41 @@ function buildDoc(r,photo,idCard,log,withId,tag){
   h+='<div class="fb"><div class="idrow"><div class="ph" style="'+(photo&&/^data:image/.test(photo)?'background-image:url('+photo+')':'')+'">'+(photo?'':'بدون صورة')+'</div><table>'+
      row2('name')+row2('nid','gender')+row2('birthDate','birthGov')+row2('phone','phone2')+row2('email','resGov')+'</table></div>';
   h+='<table>'+row2('address')+row2('emgName','emgRel')+row2('emgPhone')+'</table>';
-  h+='<div class="sec">بيانات العمل</div><table>'+row2('cohort','contract')+(r.volType?row2('volType'):'')+row2('site','region')+row2('site2','joinDate')+row2('jobs')+(r.jobOther?row2('jobOther'):'')+(r.dept?row2('dept','unit'):'')+row2('origEmployer','hotel')+'</table>';
+  h+='<div class="sec">بيانات العمل</div><table>'+row2('cohort','contract')+(r.volType?row2('volType'):'')+row2('site','region')+row2('site2','joinDate')+row2('jobs')+(r.jobOther?row2('jobOther'):'')+(r.dept?row2('dept','unit'):'')+row2('origEmployer')+'</table>';
   h+='<div class="sec">المؤهل الدراسي والعهدة</div><table>'+row2('qual','major')+row2('univ','gradYear')+row2('custody')+(r.notes?row2('notes'):'')+'</table>';
   h+='<div class="sec">بيانات السجل</div><table>'+row2('createdAt','updatedAt')+(r.status?row2('updates','status'):'')+'</table>';
-  h+='<div class="sigs"><div>توقيع العضو</div><div>مسئول الموارد البشرية</div><div>مدير القطاع الميداني</div></div>';
-  if(log&&log.length){ h+='<div class="sec">سجل التعديلات</div><table class="logt"><tr><td class="k">التاريخ</td><td class="k">الإجراء</td><td class="k" style="width:auto">التفاصيل</td></tr>'+log.map(function(l){return '<tr><td>'+esc(l.at)+'</td><td>'+esc(l.action)+'</td><td>'+esc(l.details)+'</td></tr>';}).join('')+'</table>'; }
-  h+='</div>';
+  if(log&&log.length){ var lg=log.slice(-6); h+='<div class="sec">سجل التعديلات'+(log.length>6?' (آخر 6 من '+log.length+')':'')+'</div><table class="logt"><tr><td class="k">التاريخ</td><td class="k">الإجراء</td><td class="k" style="width:auto">التفاصيل</td></tr>'+lg.map(function(l){return '<tr><td>'+esc(l.at)+'</td><td>'+esc(l.action)+'</td><td>'+esc(String(l.details||'').slice(0,220))+'</td></tr>';}).join('')+'</table>'; }
   if(withId&&idCard){
-    h+='<div class="pb"></div><div class="fb"><div class="sec">صورة بطاقة الرقم القومي — '+esc(r.name)+'</div>';
-    h+= /^data:image/.test(idCard) ? '<img class="idimg" src="'+idCard+'" alt="">' : '<p style="padding:10px">صورة البطاقة مرفوعة بصيغة PDF — متاحة في مجلد المرفقات على Google Drive.</p>';
-    h+='</div>';
+    h+='<div class="sec">صورة بطاقة الرقم القومي</div>';
+    h+= /^data:image/.test(idCard) ? '<img class="idimg" src="'+idCard+'" alt="">' : '<p style="padding:6px 10px">صورة البطاقة مرفوعة بصيغة PDF — متاحة في مجلد المرفقات على Google Drive.</p>';
   }
+  h+='<div class="sigs"><div>توقيع العضو</div><div>مسئول الموارد البشرية</div><div>مدير القطاع الميداني</div></div>';
+  h+='</div>';
   h+='<div class="ff"><span>'+esc(tag||'')+'</span><span>تاريخ الطباعة: '+now+'</span><span>سري — للاستخدام الداخلي</span></div></div>';
   return h;
 }
+/* ضبط الاستمارة لتملأ صفحة A4 واحدة بالظبط */
+function fitOnePage(){
+  var pa=$('#print-area'), doc=$('.form-doc',pa); if(!doc) return 1;
+  var MM=96/25.4, W=194, maxH=277*MM;
+  pa.classList.add('measure');
+  function apply(z){ doc.style.zoom=z; doc.style.width=(W/z)+'mm'; return doc.getBoundingClientRect().height; }
+  var z=1, h=apply(1);
+  for(var i=0;i<12;i++){            // تقريب تدريجي حتى يملأ الصفحة بالظبط بدون ما يزيد
+    var nz=Math.max(.5,Math.min(1.3,z*Math.sqrt(maxH/h)));
+    if(Math.abs(nz-z)<.004) break;
+    z=nz; h=apply(z);
+  }
+  while(h>maxH && z>.5){ z*=.985; h=apply(z); }
+  pa.classList.remove('measure');
+  return z;
+}
+window.__fitOnePage=fitOnePage;
 function printDoc(html){
   var pa=$('#print-area'); pa.innerHTML=html;
   var old=document.title; document.title='ملف تحديث بيانات - '+((window.__r&&window.__r.name)||'')+' - '+((window.__r&&window.__r.nid)||'');
   var imgs=$$('img',pa), left=imgs.length;
-  function go(){ setTimeout(function(){ window.print(); document.title=old; },150); }
+  function go(){ fitOnePage(); setTimeout(function(){ window.print(); document.title=old; },150); }
   if(!left) return go();
   imgs.forEach(function(im){ if(im.complete) { if(--left===0) go(); } else im.addEventListener('load',function(){ if(--left===0) go(); }), im.addEventListener('error',function(){ if(--left===0) go(); }); });
 }
