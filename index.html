@@ -6,7 +6,7 @@
 <title>غرفة الرصد الميداني</title>
 <meta name="robots" content="noindex, nofollow">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<!-- الإصدار 4: الأعضاء + الرصدات -->
+<!-- الإصدار 5: الأعضاء + الرصدات -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -379,8 +379,8 @@ body.masked .sens{filter:blur(6px);user-select:none}
         <input id="q" type="search" placeholder="ابحث بأي جزء من الاسم أو الموبايل أو الرقم القومي" aria-label="بحث" autocomplete="off">
         <div class="results" id="results" role="listbox"></div>
       </div>
-      <button class="btn rep" id="repNewBtn" hidden>+ رصد جديد</button>
-      <button class="btn" id="repBtn" hidden>الرصدات <span class="cnt" id="repCnt"></span></button>
+      <button class="btn rep" id="repNewBtn">+ رصد جديد</button>
+      <button class="btn" id="repBtn">الرصدات <span class="cnt" id="repCnt"></span></button>
       <button class="btn" id="addBtn" hidden>+ إضافة عضو</button>
       <button class="btn" id="gapBtn" disabled>الفجوات</button>
       <button class="btn" id="expAll" disabled title="تصدير كل بيانات القطاع إلى Excel">Excel</button>
@@ -429,7 +429,7 @@ body.masked .sens{filter:blur(6px);user-select:none}
       بيانات الأفراد محمية بكلمة مرور ولا تظهر قبل تسجيل الدخول.
       <div><button class="btn gold" id="ctaBtn">تسجيل الدخول</button></div>
     </div>
-    <div class="hud" id="hud"><div class="gname" id="hudG">&nbsp;</div><div id="hudLL"><b>30.04°N</b> <b>31.24°E</b></div><div class="ver">الإصدار 4 — الرصدات</div></div>
+    <div class="hud" id="hud"><div class="gname" id="hudG">&nbsp;</div><div id="hudLL"><b>30.04°N</b> <b>31.24°E</b></div><div class="ver">الإصدار 5 — الرصدات</div></div>
     <div class="chips" id="chips"></div>
 
     <aside id="panel" aria-live="polite">
@@ -1364,7 +1364,7 @@ function updateUserUI(){
   document.getElementById("loginBtn").hidden=true;
   document.getElementById("logoutBtn").hidden=false;
   document.getElementById("addBtn").hidden=true;
-  ["repNewBtn","repBtn"].forEach(id=>document.getElementById(id).hidden=MODE!=="api");
+  ["repNewBtn","repBtn"].forEach(id=>document.getElementById(id).hidden=MODE==="local");
   ["lyRepWrap","lySndWrap"].forEach(id=>document.getElementById(id).hidden=MODE!=="api");
 }
 function refreshAll(){
@@ -1755,8 +1755,8 @@ $("repF").onsubmit=async e=>{
   }catch(x){err.textContent=x.message}
   finally{go.disabled=false;go.textContent="حفظ الرصد"}
 };
-$("repNewBtn").onclick=()=>openRepForm(null,"");
-$("repBtn").onclick=()=>openReports({});
+$("repNewBtn").onclick=()=>MODE==="api"?openRepForm(null,""):showLogin("سجّل الدخول لإضافة رصد");
+$("repBtn").onclick=()=>MODE==="api"?openReports({}):showLogin("سجّل الدخول لعرض الرصدات");
 
 /* ---------- intro ---------- */
 buildIndex();buildTicker();applyFill();
